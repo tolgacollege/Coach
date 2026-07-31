@@ -1,0 +1,28 @@
+{
+  "lastUpdated": "2026-03-19",
+  "note": "Update times after each meet. Format: seconds as 52.34, or minutes:seconds as 1:52.54. Set to empty string if not yet swum.",
+  "scy": {
+    "50 Back":    "",
+    "100 Back":   "51.37",
+    "200 Back":   "1:52.54",
+    "200 IM":     "1:53.56",
+    "400 IM":     "4:06.03",
+    "100 Breast": "59.53",
+    "200 Breast": "2:09.04",
+    "100 Free":   "49.15",
+    "200 Free":   "",
+    "500 Free":   ""
+  },
+  "lcm": {
+    "50 Back":    "",
+    "100 Back":   "1:08.94",
+    "200 Back":   "2:29.99",
+    "200 IM":     "2:31.49",
+    "400 IM":     "",
+    "100 Breast": "1:15.78",
+    "200 Breast": "",
+    "100 Free":   "",
+    "200 Free":   "",
+    "400 Free":   ""
+  }
+}
