@@ -3,227 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Tolga Kilic · Recruiting Coach</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #0b1a2e;
-  --panel: #111f35;
-  --card: #162843;
-  --gold: #c9a84c;
-  --gold2: #e8c97a;
-  --white: #f4f4f0;
-  --muted: #7a8ea6;
-  --dim: #4a5e74;
-  --border: rgba(201,168,76,0.15);
-  --green: #3dd68c;
-  --blue: #4da6ff;
-  --orange: #f5a623;
-  --red: #f56565;
-  --fh: 'DM Serif Display', Georgia, serif;
-  --fb: 'DM Sans', system-ui, sans-serif;
+  --navy:#0b1a2e; --panel:#111f35; --card:#162843;
+  --gold:#c9a84c; --gold2:#e8c97a;
+  --white:#f4f4f0; --muted:#7a8ea6; --dim:#4a5e74;
+  --border:rgba(201,168,76,0.15);
+  --green:#3dd68c; --blue:#4da6ff; --orange:#f5a623; --red:#f56565;
+  --fh:'DM Serif Display',Georgia,serif;
+  --fb:'DM Sans',system-ui,sans-serif;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; overflow: hidden; }
-body { font-family: var(--fb); background: var(--navy); color: var(--white); display: flex; flex-direction: column; height: 100vh; }
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:var(--fb);background:var(--navy);color:var(--white);display:flex;flex-direction:column;height:100vh;}
+
+/* ── API KEY GATE ── */
+#gate{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px;}
+#gate.off{display:none;}
+.gate-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:34px 30px;width:100%;max-width:440px;text-align:center;}
+.gate-av{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#7a5c12);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:19px;color:var(--navy);font-weight:700;margin:0 auto 16px;}
+.gate-card h1{font-family:var(--fh);font-size:21px;margin-bottom:6px;}
+.gate-card .sub{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.6;}
+.gate-lbl{display:block;text-align:left;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;}
+.gate-inp{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:9px;color:var(--white);font-family:'Courier New',monospace;font-size:13px;padding:11px 13px;outline:none;transition:border-color .15s;margin-bottom:10px;}
+.gate-inp:focus{border-color:var(--gold);}
+.gate-inp::placeholder{color:var(--dim);font-family:var(--fb);}
+.gate-btn{width:100%;padding:12px;border-radius:9px;border:none;background:var(--gold);color:var(--navy);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;margin-bottom:14px;}
+.gate-btn:hover{background:var(--gold2);}
+.gate-err{font-size:12px;color:var(--red);margin-bottom:10px;min-height:18px;display:none;}
+.gate-err.show{display:block;}
+.gate-help{background:rgba(77,166,255,0.07);border:1px solid rgba(77,166,255,0.18);border-radius:9px;padding:13px 15px;text-align:left;margin-top:4px;}
+.gate-help p{font-size:12px;color:var(--muted);line-height:1.7;}
+.gate-help a{color:var(--blue);text-decoration:none;}
+.gate-help a:hover{text-decoration:underline;}
+.gate-help strong{color:var(--white);font-weight:500;}
+.gate-priv{font-size:11px;color:var(--dim);margin-top:12px;line-height:1.6;}
+.gate-priv span{color:var(--green);}
+
+/* ── MAIN APP ── */
+#app{display:flex;flex-direction:column;height:100%;}
+#app.off{display:none;}
 
 /* ── HEADER ── */
-.hdr { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0; flex-wrap: wrap; }
-.av { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #7a5c12); display: flex; align-items: center; justify-content: center; font-family: var(--fh); font-size: 13px; color: var(--navy); font-weight: 700; flex-shrink: 0; }
-.hdr-info { flex: 1; min-width: 0; }
-.hdr-info h1 { font-family: var(--fh); font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.hdr-info p { font-size: 10.5px; color: var(--muted); margin-top: 1px; }
-.badges { display: flex; gap: 5px; flex-wrap: wrap; }
-.badge { font-size: 10px; padding: 2px 7px; border-radius: 20px; border: 1px solid; font-weight: 500; white-space: nowrap; }
-.bg { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.07); }
-.bb { border-color: var(--blue); color: var(--blue); background: rgba(77,166,255,0.07); }
-.bn { border-color: var(--green); color: var(--green); background: rgba(61,214,140,0.07); }
-.bp { border-color: var(--orange); color: var(--orange); background: rgba(245,166,35,0.07); }
-.grade-block { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; padding: 0 4px; border-right: 1px solid var(--border); margin-right: 4px; }
-.grade-main { font-family: var(--fh); font-size: 15px; color: var(--gold2); line-height: 1; }
-.grade-sub { font-size: 9.5px; color: var(--muted); white-space: nowrap; }
-.recruiting-status { font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
-.rs-active { color: var(--green); }
-.rs-window { color: var(--orange); }
-.sync-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
-.sync-btn { display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 7px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); color: var(--gold2); font-family: var(--fb); font-size: 11px; cursor: pointer; transition: all .15s; }
-.sync-btn:hover:not(:disabled) { border-color: var(--gold); background: rgba(201,168,76,0.07); }
-.sync-btn:disabled { opacity: .45; cursor: not-allowed; }
-.sync-icon { display: inline-block; }
-.sync-btn.spin .sync-icon { animation: spin 1s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.sync-note { font-size: 9.5px; color: var(--dim); }
+.hdr{display:flex;align-items:center;gap:10px;padding:10px 15px;border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap;}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#7a5c12);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:13px;color:var(--navy);font-weight:700;flex-shrink:0;}
+.hdr-info{flex:1;min-width:0;}
+.hdr-info h1{font-family:var(--fh);font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hdr-info p{font-size:10.5px;color:var(--muted);margin-top:1px;}
+.grade-block{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;padding:0 10px;border-right:1px solid var(--border);}
+.grade-main{font-family:var(--fh);font-size:14px;color:var(--gold2);line-height:1;}
+.grade-sub{font-size:9.5px;color:var(--muted);white-space:nowrap;}
+.recruit-status{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;}
+.rs-active{color:var(--green);}
+.rs-soon{color:var(--orange);}
+.badges{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
+.badge{font-size:10px;padding:2px 7px;border-radius:20px;border:1px solid;font-weight:500;white-space:nowrap;}
+.bg{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.07);}
+.bb{border-color:var(--blue);color:var(--blue);background:rgba(77,166,255,0.07);}
+.bn{border-color:var(--green);color:var(--green);background:rgba(61,214,140,0.07);}
+.bo{border-color:var(--orange);color:var(--orange);background:rgba(245,166,35,0.07);}
+.hdr-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;}
+.sync-btn{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:7px;border:1px solid var(--border);background:rgba(255,255,255,0.03);color:var(--gold2);font-family:var(--fb);font-size:11px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.sync-btn:hover:not(:disabled){border-color:var(--gold);background:rgba(201,168,76,0.07);}
+.sync-btn:disabled{opacity:.45;cursor:not-allowed;}
+.sync-icon{display:inline-block;}
+.sync-btn.spin .sync-icon{animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.sync-note{font-size:9.5px;color:var(--dim);}
+.chg-key{font-size:10px;color:var(--dim);background:none;border:none;cursor:pointer;font-family:var(--fb);padding:0;}
+.chg-key:hover{color:var(--muted);}
 
 /* ── LAYOUT ── */
-.body { display: flex; flex: 1; overflow: hidden; }
+.body{display:flex;flex:1;overflow:hidden;}
 
 /* ── SIDEBAR ── */
-.sb { width: 218px; flex-shrink: 0; background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
-.sb-scroll { flex: 1; overflow-y: auto; padding: 8px 8px 12px; }
-.sb-scroll::-webkit-scrollbar { width: 3px; }
-.sb-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 10px; }
-.sb-label { font-size: 9px; font-weight: 700; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; padding: 10px 8px 5px; }
-.sb-label:first-child { padding-top: 4px; }
-.sb-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 9px; border-radius: 7px; border: none; background: transparent; color: var(--white); font-family: var(--fb); font-size: 12px; cursor: pointer; text-align: left; transition: background .12s; line-height: 1.3; }
-.sb-btn:hover { background: rgba(255,255,255,0.05); }
-.sb-btn .ic { width: 24px; height: 24px; border-radius: 6px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
-.sb-btn.highlight .ic { background: rgba(201,168,76,0.12); }
+.sb{width:218px;flex-shrink:0;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.sb-scroll{flex:1;overflow-y:auto;padding:8px 8px 10px;}
+.sb-scroll::-webkit-scrollbar{width:3px;}
+.sb-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.07);border-radius:10px;}
+.sb-lbl{font-size:9px;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;padding:10px 8px 5px;}
+.sb-lbl:first-child{padding-top:4px;}
+.sb-btn{display:flex;align-items:center;gap:8px;width:100%;padding:7px 9px;border-radius:7px;border:none;background:transparent;color:var(--white);font-family:var(--fb);font-size:12px;cursor:pointer;text-align:left;transition:background .12s;line-height:1.3;}
+.sb-btn:hover{background:rgba(255,255,255,0.05);}
+.sb-btn .ic{width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.sb-btn.hi .ic{background:rgba(201,168,76,0.12);}
 
-/* ── TIMES TABLE ── */
-.times-box { margin: 6px 4px 4px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: rgba(0,0,0,0.15); flex-shrink: 0; }
-.times-hdr { display: flex; align-items: center; justify-content: space-between; padding: 6px 9px; border-bottom: 1px solid var(--border); }
-.times-hdr span { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
-.edit-btn { font-size: 9.5px; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--border); background: transparent; color: var(--gold); cursor: pointer; font-family: var(--fb); }
-.edit-btn:hover { background: rgba(201,168,76,0.09); }
-.tr { display: flex; align-items: center; justify-content: space-between; padding: 3px 9px; font-size: 11px; }
-.tr .ev { color: var(--muted); flex: 1; }
-.tr .tm { color: var(--gold2); font-weight: 500; font-variant-numeric: tabular-nums; margin-right: 5px; }
-.tr .tier { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; }
-.td1 { background: rgba(245,166,35,0.14); color: var(--orange); }
-.td2 { background: rgba(61,214,140,0.12); color: var(--green); }
-.td3 { background: rgba(77,166,255,0.12); color: var(--blue); }
-.pb-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-right: 3px; }
-.times-foot { font-size: 9.5px; color: var(--dim); padding: 3px 9px 5px; line-height: 1.4; }
-.no-times { padding: 8px 9px; font-size: 11px; color: var(--dim); font-style: italic; }
-.course-toggle { display: flex; border-radius: 5px; overflow: hidden; border: 1px solid var(--border); flex-shrink: 0; }
-.course-btn { font-size: 9.5px; font-weight: 700; padding: 3px 9px; background: transparent; color: var(--dim); border: none; cursor: pointer; font-family: var(--fb); transition: all .12s; letter-spacing: .03em; }
-.course-btn.on { background: var(--gold); color: var(--navy); }
-.course-btn:not(.on):hover { color: var(--gold2); background: rgba(201,168,76,0.07); }
+/* ── TIMES PANEL ── */
+.times-panel{padding:0 6px 8px;flex-shrink:0;border-top:1px solid var(--border);}
+.times-lbl{font-size:9px;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;padding:7px 2px 4px;display:flex;align-items:center;justify-content:space-between;}
+.times-src{font-size:9px;color:var(--green);font-weight:500;}
+.times-src.local{color:var(--orange);}
+.times-box{border:1px solid var(--border);border-radius:8px;overflow:hidden;background:rgba(0,0,0,0.15);}
+.times-hdr{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;border-bottom:1px solid var(--border);gap:4px;}
+.course-toggle{display:flex;border-radius:5px;overflow:hidden;border:1px solid var(--border);flex-shrink:0;}
+.course-btn{font-size:9px;font-weight:700;padding:2px 7px;background:transparent;color:var(--dim);border:none;cursor:pointer;font-family:var(--fb);letter-spacing:.05em;transition:all .12s;}
+.course-btn.on{background:var(--gold);color:var(--navy);}
+.edit-btn{font-size:9.5px;padding:2px 7px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--gold);cursor:pointer;font-family:var(--fb);flex-shrink:0;}
+.edit-btn:hover{background:rgba(201,168,76,0.09);}
+.tr{display:flex;align-items:center;justify-content:space-between;padding:3px 9px;font-size:11px;}
+.tr .ev{color:var(--muted);flex:1;}
+.tr .pb-dot{width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0;margin-right:3px;}
+.tr .tm{color:var(--gold2);font-weight:500;font-variant-numeric:tabular-nums;margin-right:5px;}
+.tr .tier{font-size:9px;padding:1px 5px;border-radius:3px;font-weight:600;}
+.td1{background:rgba(245,166,35,0.14);color:var(--orange);}
+.td2{background:rgba(61,214,140,0.12);color:var(--green);}
+.td3{background:rgba(77,166,255,0.12);color:var(--blue);}
+.times-foot{font-size:9.5px;color:var(--dim);padding:3px 2px 0;line-height:1.5;}
+.no-times{padding:7px 9px;font-size:11px;color:var(--dim);font-style:italic;}
 
-/* ── MODAL TABS ── */
-.tabrow { display: flex; border-radius: 7px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 13px; }
-.tabbtn { flex: 1; padding: 8px; font-size: 12px; font-weight: 600; font-family: var(--fb); background: transparent; color: var(--muted); border: none; cursor: pointer; transition: all .12s; }
-.tabbtn.on { background: var(--gold); color: var(--navy); }
-.tabbtn:not(.on):hover { color: var(--white); background: rgba(255,255,255,0.04); }
-.tabpanel { display: none; }
-.tabpanel.on { display: block; }
+/* ── OVERLAYS ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:300;display:flex;align-items:center;justify-content:center;padding:16px;}
+.overlay.off{display:none;}
+.modal{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;}
+.modal h2{font-family:var(--fh);font-size:17px;margin-bottom:4px;}
+.modal .msub{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.55;}
+.modal-tabs{display:flex;border-radius:7px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px;}
+.modal-tab{flex:1;padding:8px;font-size:12px;font-weight:600;font-family:var(--fb);background:transparent;color:var(--muted);border:none;cursor:pointer;transition:all .12s;letter-spacing:.04em;}
+.modal-tab.on{background:var(--gold);color:var(--navy);}
+.tab-panel{display:none;}
+.tab-panel.on{display:block;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.fld label{display:block;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+.fld input{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:7px;color:var(--white);font-family:var(--fb);font-size:13px;padding:7px 9px;outline:none;transition:border-color .15s;}
+.fld input:focus{border-color:var(--gold);}
+.fld input::placeholder{color:#2a3a4a;}
+.modal-note{background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.2);border-radius:7px;padding:9px 11px;font-size:11.5px;color:var(--orange);line-height:1.6;margin-bottom:12px;}
+.modal-note strong{font-weight:600;}
+.mbtns{display:flex;gap:8px;margin-top:14px;}
+.mpri{flex:1;padding:9px;border-radius:7px;border:none;background:var(--gold);color:var(--navy);font-family:var(--fb);font-size:13px;font-weight:600;cursor:pointer;}
+.mpri:hover{background:var(--gold2);}
+.msec{flex:1;padding:9px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--fb);font-size:13px;cursor:pointer;}
+.msec:hover{color:var(--white);background:rgba(255,255,255,0.04);}
+.school-inp{width:100%;background:rgba(255,255,255,0.06);border:1px solid var(--gold);border-radius:8px;color:var(--white);font-family:var(--fb);font-size:14px;padding:10px 12px;outline:none;margin-bottom:12px;}
+.school-inp::placeholder{color:var(--dim);}
 
-/* ── MODAL ── */
-.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 300; display: flex; align-items: center; justify-content: center; padding: 16px; }
-.overlay.off { display: none; }
-.modal { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 20px; width: 100%; max-width: 390px; max-height: 88vh; overflow-y: auto; }
-.modal h2 { font-family: var(--fh); font-size: 17px; margin-bottom: 4px; }
-.modal .msub { font-size: 12px; color: var(--muted); margin-bottom: 14px; line-height: 1.5; }
-.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-.fld label { display: block; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
-.fld input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 7px; color: var(--white); font-family: var(--fb); font-size: 13px; padding: 7px 9px; outline: none; transition: border-color .15s; }
-.fld input:focus { border-color: var(--gold); }
-.fld input::placeholder { color: #334455; }
-.mbtns { display: flex; gap: 8px; margin-top: 14px; }
-.mpri { flex: 1; padding: 9px; border-radius: 7px; border: none; background: var(--gold); color: var(--navy); font-family: var(--fb); font-size: 13px; font-weight: 600; cursor: pointer; }
-.mpri:hover { background: var(--gold2); }
-.msec { flex: 1; padding: 9px; border-radius: 7px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-family: var(--fb); font-size: 13px; cursor: pointer; }
-.msec:hover { color: var(--white); background: rgba(255,255,255,0.04); }
-.school-inp { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid var(--gold); border-radius: 8px; color: var(--white); font-family: var(--fb); font-size: 14px; padding: 10px 12px; outline: none; margin-bottom: 12px; }
-.school-inp::placeholder { color: var(--dim); }
-
-/* ── STATUS ── */
-.status { padding: 4px 16px; font-size: 11px; flex-shrink: 0; display: none; }
-.status.ok { background: rgba(61,214,140,0.07); border-bottom: 1px solid rgba(61,214,140,0.15); color: var(--green); display: block; }
-.status.err { background: rgba(245,101,101,0.07); border-bottom: 1px solid rgba(245,101,101,0.15); color: var(--red); display: block; }
+/* ── STATUS BAR ── */
+.status{padding:4px 15px;font-size:11px;flex-shrink:0;display:none;}
+.status.ok{background:rgba(61,214,140,0.07);border-bottom:1px solid rgba(61,214,140,0.15);color:var(--green);display:block;}
+.status.err{background:rgba(245,101,101,0.07);border-bottom:1px solid rgba(245,101,101,0.15);color:var(--red);display:block;}
+.status.info{background:rgba(77,166,255,0.07);border-bottom:1px solid rgba(77,166,255,0.15);color:var(--blue);display:block;}
 
 /* ── CHAT ── */
-.chat { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-.msgs { flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
-.msgs::-webkit-scrollbar { width: 4px; }
-.msgs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.09); border-radius: 10px; }
-.msg { display: flex; gap: 9px; }
-.msg.user { flex-direction: row-reverse; align-self: flex-end; max-width: 72%; }
-.msg.coach { max-width: 88%; }
-.mav { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
-.mav.coach { background: linear-gradient(135deg, var(--gold), #7a5c12); color: var(--navy); font-family: var(--fh); }
-.mav.user { background: var(--card); color: var(--white); }
-.bub { padding: 10px 13px; border-radius: 12px; font-size: 13px; line-height: 1.65; }
-.msg.coach .bub { background: var(--panel); border: 1px solid var(--border); border-top-left-radius: 3px; }
-.msg.user .bub { background: var(--card); border: 1px solid rgba(77,166,255,0.18); border-top-right-radius: 3px; }
-.bub strong { color: var(--gold2); font-weight: 600; }
-.bub ul, .bub ol { padding-left: 17px; margin: 5px 0; }
-.bub li { margin: 3px 0; }
-.bub p + p { margin-top: 6px; }
-.bub h3 { font-family: var(--fh); font-size: 14px; color: var(--gold2); margin: 9px 0 4px; }
-.bub h4 { font-size: 13px; font-weight: 600; color: var(--gold); margin: 7px 0 3px; }
-.bub .eml { background: rgba(0,0,0,0.3); border-left: 3px solid var(--gold); border-radius: 0 7px 7px 0; padding: 10px 13px; margin: 9px 0; font-size: 12px; line-height: 1.75; color: #c5d8f0; font-family: 'Courier New', monospace; white-space: pre-wrap; }
-.bub .ccard { background: rgba(201,168,76,0.07); border: 1px solid var(--border); border-radius: 9px; padding: 9px 11px; margin: 7px 0; }
-.bub .cname { font-weight: 600; color: var(--gold2); font-size: 13.5px; }
-.bub .cmeta { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
-
-.typing { display: flex; gap: 5px; align-items: center; padding: 3px 0; }
-.typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: bob 1.2s infinite; }
-.typing span:nth-child(2) { animation-delay: .2s; }
-.typing span:nth-child(3) { animation-delay: .4s; }
-@keyframes bob { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+.chat{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.msgs{flex:1;overflow-y:auto;padding:13px 15px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth;}
+.msgs::-webkit-scrollbar{width:4px;}
+.msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.09);border-radius:10px;}
+.msg{display:flex;gap:9px;}
+.msg.user{flex-direction:row-reverse;align-self:flex-end;max-width:72%;}
+.msg.coach{max-width:90%;}
+.mav{width:28px;height:28px;border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
+.mav.coach{background:linear-gradient(135deg,var(--gold),#7a5c12);color:var(--navy);font-family:var(--fh);}
+.mav.user{background:var(--card);color:var(--white);}
+.bub{padding:10px 13px;border-radius:12px;font-size:13px;line-height:1.65;}
+.msg.coach .bub{background:var(--panel);border:1px solid var(--border);border-top-left-radius:3px;}
+.msg.user .bub{background:var(--card);border:1px solid rgba(77,166,255,0.18);border-top-right-radius:3px;}
+.bub strong{color:var(--gold2);font-weight:600;}
+.bub ul,.bub ol{padding-left:17px;margin:5px 0;}
+.bub li{margin:3px 0;}
+.bub p+p{margin-top:6px;}
+.bub h3{font-family:var(--fh);font-size:14px;color:var(--gold2);margin:9px 0 4px;}
+.bub h4{font-size:13px;font-weight:600;color:var(--gold);margin:7px 0 3px;}
+.bub .eml{background:rgba(0,0,0,0.3);border-left:3px solid var(--gold);border-radius:0 7px 7px 0;padding:10px 13px;margin:9px 0;font-size:12px;line-height:1.75;color:#c5d8f0;font-family:'Courier New',monospace;white-space:pre-wrap;}
+.bub .ccard{background:rgba(201,168,76,0.07);border:1px solid var(--border);border-radius:9px;padding:9px 11px;margin:7px 0;}
+.bub .cname{font-weight:600;color:var(--gold2);font-size:13.5px;}
+.bub .cmeta{font-size:11.5px;color:var(--muted);margin-top:2px;}
+.typing{display:flex;gap:5px;align-items:center;padding:3px 0;}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:bob 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:.2s;}
+.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes bob{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
 
 /* ── INPUT ── */
-.inp-area { padding: 10px 14px 12px; border-top: 1px solid var(--border); flex-shrink: 0; }
-.inp-row { display: flex; gap: 7px; align-items: flex-end; }
-textarea { flex: 1; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; color: var(--white); font-family: var(--fb); font-size: 13px; padding: 9px 12px; resize: none; outline: none; line-height: 1.5; max-height: 100px; overflow-y: auto; transition: border-color .15s; }
-textarea::placeholder { color: var(--dim); }
-textarea:focus { border-color: rgba(201,168,76,.45); }
-.sbtn { width: 36px; height: 36px; border-radius: 8px; border: none; background: var(--gold); color: var(--navy); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background .12s, transform .1s; flex-shrink: 0; }
-.sbtn:hover { background: var(--gold2); }
-.sbtn:active { transform: scale(.94); }
-.sbtn:disabled { background: #2a3a4a; color: #4a5a6a; cursor: not-allowed; }
-.hint { font-size: 10px; color: var(--dim); margin-top: 5px; text-align: center; }
+.inp-area{padding:10px 13px 12px;border-top:1px solid var(--border);flex-shrink:0;}
+.inp-row{display:flex;gap:7px;align-items:flex-end;}
+textarea{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:10px;color:var(--white);font-family:var(--fb);font-size:13px;padding:9px 12px;resize:none;outline:none;line-height:1.5;max-height:100px;overflow-y:auto;transition:border-color .15s;}
+textarea::placeholder{color:var(--dim);}
+textarea:focus{border-color:rgba(201,168,76,.45);}
+.sbtn{width:36px;height:36px;border-radius:8px;border:none;background:var(--gold);color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .12s,transform .1s;flex-shrink:0;}
+.sbtn:hover{background:var(--gold2);}
+.sbtn:active{transform:scale(.94);}
+.sbtn:disabled{background:#2a3a4a;color:#4a5a6a;cursor:not-allowed;}
+.hint{font-size:10px;color:var(--dim);margin-top:5px;text-align:center;}
 
 /* ── CHIPS ── */
-.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 10px; }
-.chip { font-size: 11px; padding: 5px 10px; border-radius: 20px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); color: var(--muted); cursor: pointer; transition: all .12s; font-family: var(--fb); }
-.chip:hover { border-color: var(--gold); color: var(--gold2); background: rgba(201,168,76,0.06); }
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 15px 10px;}
+.chip{font-size:11px;padding:5px 10px;border-radius:20px;border:1px solid var(--border);background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer;transition:all .12s;font-family:var(--fb);}
+.chip:hover{border-color:var(--gold);color:var(--gold2);background:rgba(201,168,76,0.06);}
 </style>
 </head>
 <body>
+
+<!-- ═══════ FAMILY PASSPHRASE GATE ═══════ -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-av">TK</div>
+    <h1>Tolga Kilic · Recruiting Coach</h1>
+    <p class="sub">This is a private family tool. Enter the passphrase to continue — no account or API key needed.</p>
+    <label class="gate-lbl" for="key-inp">Passphrase</label>
+    <input type="password" class="gate-inp" id="key-inp" placeholder="Enter passphrase" onkeydown="if(event.key==='Enter')startApp()" oninput="document.getElementById('gate-err').classList.remove('show')">
+    <div class="gate-err" id="gate-err">Incorrect passphrase — please try again.</div>
+    <button class="gate-btn" onclick="startApp()">Start Recruiting Coach →</button>
+    <div class="gate-help">
+      <p><strong>Don't have the passphrase?</strong></p>
+      <p>Ask Levent for it. This page runs through a private proxy that keeps the AI key secure server-side — the passphrase just confirms you're family, not the public internet.</p>
+    </div>
+    <p class="gate-priv"><span>🔒 Private</span> — remembered on this browser only. Use "change passphrase" in the header to reset it.</p>
+  </div>
+</div>
+
+<!-- ═══════ MAIN APP ═══════ -->
+<div id="app" class="off">
 
 <!-- TIME EDIT MODAL -->
 <div class="overlay off" id="ov-times">
   <div class="modal">
     <h2>Update Tolga's Times</h2>
-    <p class="msub">Enter new times in format 52.34 or 1:52.34. Leave blank to keep current. Any improvement will be flagged as a PB.</p>
-    <div class="tabrow">
-      <button class="tabbtn on" id="tb-scy" onclick="switchModalTab('scy')">SCY — Short Course Yards</button>
-      <button class="tabbtn" id="tb-lcm" onclick="switchModalTab('lcm')">LCM — Long Course Meters</button>
+    <p class="msub">Edit times here for this session. To save permanently across all devices, update <strong>times.json</strong> in your GitHub repo.</p>
+    <div class="modal-note">
+      <strong>To save across all devices:</strong> edit <code>times.json</code> in your GitHub repository. Changes here last only for this browser session.
     </div>
-    <div class="tabpanel on" id="tp-scy">
+    <div class="modal-tabs">
+      <button class="modal-tab on" id="mtab-scy" onclick="switchModalTab('scy')">SCY — Short Course Yards</button>
+      <button class="modal-tab" id="mtab-lcm" onclick="switchModalTab('lcm')">LCM — Long Course Meters</button>
+    </div>
+    <div class="tab-panel on" id="mpanel-scy">
       <div class="g2">
-        <div class="fld"><label>50 Free (Y)</label><input id="f-50fr" placeholder="22.36"></div>
-        <div class="fld"><label>100 Free (Y)</label><input id="f-100fr" placeholder="48.92"></div>
-        <div class="fld"><label>200 Free (Y)</label><input id="f-200fr" placeholder="1:46.41"></div>
-        <div class="fld"><label>500 Free (Y)</label><input id="f-500fr" placeholder="4:54.24"></div>
-        <div class="fld"><label>1000 Free (Y)</label><input id="f-1000fr" placeholder="9:52.16"></div>
-        <div class="fld"><label>50 Back (Y)</label><input id="f-50b" placeholder="24.85"></div>
+        <div class="fld"><label>50 Back (Y)</label><input id="f-50b" placeholder="—"></div>
         <div class="fld"><label>100 Back (Y)</label><input id="f-100b" placeholder="51.37"></div>
-        <div class="fld"><label>200 Back (Y)</label><input id="f-200b" placeholder="1:50.89"></div>
-        <div class="fld"><label>50 Breast (Y)</label><input id="f-50br" placeholder="28.06"></div>
-        <div class="fld"><label>100 Breast (Y)</label><input id="f-100br" placeholder="59.53"></div>
-        <div class="fld"><label>200 Breast (Y)</label><input id="f-200br" placeholder="2:04.76"></div>
-        <div class="fld"><label>50 Fly (Y)</label><input id="f-50fl" placeholder="25.42"></div>
-        <div class="fld"><label>100 Fly (Y)</label><input id="f-100fl" placeholder="54.07"></div>
-        <div class="fld"><label>200 Fly (Y)</label><input id="f-200fl" placeholder="2:04.72"></div>
-        <div class="fld"><label>200 IM (Y)</label><input id="f-200im" placeholder="1:53.49"></div>
+        <div class="fld"><label>200 Back (Y)</label><input id="f-200b" placeholder="1:52.54"></div>
+        <div class="fld"><label>200 IM (Y)</label><input id="f-200im" placeholder="1:53.56"></div>
         <div class="fld"><label>400 IM (Y)</label><input id="f-400im" placeholder="4:06.03"></div>
+        <div class="fld"><label>100 Breast (Y)</label><input id="f-100br" placeholder="59.53"></div>
+        <div class="fld"><label>200 Breast (Y)</label><input id="f-200br" placeholder="2:09.04"></div>
+        <div class="fld"><label>100 Free (Y)</label><input id="f-100fr" placeholder="49.15"></div>
+        <div class="fld"><label>200 Free (Y)</label><input id="f-200fr" placeholder="—"></div>
+        <div class="fld"><label>500 Free (Y)</label><input id="f-500fr" placeholder="—"></div>
       </div>
     </div>
-    <div class="tabpanel" id="tp-lcm">
+    <div class="tab-panel" id="mpanel-lcm">
       <div class="g2">
-        <div class="fld"><label>50 Free (M)</label><input id="lf-50fr" placeholder="25.73"></div>
-        <div class="fld"><label>100 Free (M)</label><input id="lf-100fr" placeholder="57.06"></div>
-        <div class="fld"><label>200 Free (M)</label><input id="lf-200fr" placeholder="2:02.29"></div>
-        <div class="fld"><label>400 Free (M)</label><input id="lf-400fr" placeholder="5:00.94"></div>
-        <div class="fld"><label>50 Back (M)</label><input id="lf-50b" placeholder="28.79"></div>
-        <div class="fld"><label>100 Back (M)</label><input id="lf-100b" placeholder="1:01.47"></div>
-        <div class="fld"><label>200 Back (M)</label><input id="lf-200b" placeholder="2:12.31"></div>
-        <div class="fld"><label>50 Breast (M)</label><input id="lf-50br" placeholder="32.69"></div>
-        <div class="fld"><label>100 Breast (M)</label><input id="lf-100br" placeholder="1:10.40"></div>
-        <div class="fld"><label>200 Breast (M)</label><input id="lf-200br" placeholder="2:31.35"></div>
-        <div class="fld"><label>50 Fly (M)</label><input id="lf-50fl" placeholder="28.64"></div>
-        <div class="fld"><label>100 Fly (M)</label><input id="lf-100fl" placeholder="1:03.01"></div>
-        <div class="fld"><label>200 Fly (M)</label><input id="lf-200fl" placeholder="2:28.36"></div>
-        <div class="fld"><label>200 IM (M)</label><input id="lf-200im" placeholder="2:13.39"></div>
-        <div class="fld"><label>400 IM (M)</label><input id="lf-400im" placeholder="4:54.35"></div>
+        <div class="fld"><label>50 Back (M)</label><input id="lf-50b" placeholder="—"></div>
+        <div class="fld"><label>100 Back (M)</label><input id="lf-100b" placeholder="1:08.94"></div>
+        <div class="fld"><label>200 Back (M)</label><input id="lf-200b" placeholder="2:29.99"></div>
+        <div class="fld"><label>200 IM (M)</label><input id="lf-200im" placeholder="2:31.49"></div>
+        <div class="fld"><label>400 IM (M)</label><input id="lf-400im" placeholder="—"></div>
+        <div class="fld"><label>100 Breast (M)</label><input id="lf-100br" placeholder="1:15.78"></div>
+        <div class="fld"><label>200 Breast (M)</label><input id="lf-200br" placeholder="—"></div>
+        <div class="fld"><label>100 Free (M)</label><input id="lf-100fr" placeholder="—"></div>
+        <div class="fld"><label>200 Free (M)</label><input id="lf-200fr" placeholder="—"></div>
+        <div class="fld"><label>400 Free (M)</label><input id="lf-400fr" placeholder="—"></div>
       </div>
     </div>
     <div class="mbtns">
       <button class="msec" onclick="closeModal('ov-times')">Cancel</button>
-      <button class="mpri" onclick="saveTimes()">Save Times</button>
+      <button class="mpri" onclick="saveTimes()">Apply for This Session</button>
     </div>
   </div>
 </div>
@@ -232,7 +268,7 @@ textarea:focus { border-color: rgba(201,168,76,.45); }
 <div class="overlay off" id="ov-finder">
   <div class="modal" style="max-width:340px">
     <h2>Find a Coach</h2>
-    <p class="msub">Type the school name below. I'll search for the current head swim coach, contact info, and program details — then offer to write a personalized recruiting email for Tolga.</p>
+    <p class="msub">Type any school name. I'll search for the current head swim coach, contact info, and program details — then offer to write a personalized recruiting email for Tolga.</p>
     <input type="text" class="school-inp" id="finder-inp" placeholder="e.g. Johns Hopkins University" onkeydown="if(event.key==='Enter')runFinder()">
     <div class="mbtns">
       <button class="msec" onclick="closeModal('ov-finder')">Cancel</button>
@@ -248,25 +284,23 @@ textarea:focus { border-color: rgba(201,168,76,.45); }
     <h1>Tolga Kilic · Recruiting Coach</h1>
     <p>Riverside HS (VA) · NCAP · Class of 2028 · Leesburg, VA</p>
   </div>
-
-  <!-- DYNAMIC GRADE BLOCK -->
   <div class="grade-block">
     <span class="grade-main" id="grade-label">—</span>
     <span class="grade-sub" id="grade-sub">—</span>
-    <span class="recruiting-status" id="recruit-status"></span>
+    <span class="recruit-status" id="recruit-status"></span>
   </div>
-
   <div class="badges">
-    <span class="badge bg">IM / Back / Breast</span>
+    <span class="badge bg">IM / Back</span>
     <span class="badge bb">Pre-DPT</span>
-    <span class="badge bn">#241 Natl · #60 200BR</span>
-    <span class="badge bp" id="season-badge"></span>
+    <span class="badge bn">#436 Natl · #30 VA</span>
+    <span class="badge bo" id="season-badge"></span>
   </div>
-  <div class="sync-wrap">
+  <div class="hdr-right">
     <button class="sync-btn" id="sync-btn" onclick="doSync()">
       <span class="sync-icon" id="sync-icon">⟳</span> Sync SwimCloud
     </button>
-    <span class="sync-note" id="sync-note">Not synced yet</span>
+    <span class="sync-note" id="sync-note">Loading times.json…</span>
+    <button class="chg-key" onclick="changePass()">change passphrase</button>
   </div>
 </div>
 
@@ -275,53 +309,54 @@ textarea:focus { border-color: rgba(201,168,76,.45); }
 <!-- SIDEBAR -->
 <div class="sb">
   <div class="sb-scroll">
-
-    <div class="sb-label">Find a Coach</div>
-    <button class="sb-btn highlight" onclick="openFinder()">
+    <div class="sb-lbl">Find a Coach</div>
+    <button class="sb-btn hi" onclick="openFinder()">
       <span class="ic">🔍</span>Find coach + contact info
     </button>
 
-    <div class="sb-label" style="margin-top:4px">Division Deep Dives</div>
-    <button class="sb-btn" onclick="sq('Give me a thorough D1 deep dive for Tolga. Cover: which D1 programs (mid-major conferences like CAA, NEC, MAC, Patriot, A-10) are realistic targets now and by senior year. Time standards needed per event, schools that have both D1 swimming and a DPT or strong pre-PT program, expected scholarship percentage ranges, and a prioritized outreach list of 6-8 schools.')">
+    <div class="sb-lbl" style="margin-top:4px">Division Deep Dives</div>
+    <button class="sb-btn" onclick="sq('Give me a thorough D1 deep dive for Tolga. Which D1 programs in mid-major conferences (CAA, NEC, MAC, Patriot, A-10) are realistic now and by senior year? Include time standards per event, schools with D1 swimming AND a DPT or strong pre-PT program, expected scholarship percentage ranges, and a prioritized outreach list of 6-8 schools.')">
       <span class="ic">🏅</span>D1 deep dive
     </button>
-    <button class="sb-btn" onclick="sq('Give me a thorough D2 deep dive for Tolga. Cover: which D2 programs offer both strong swimming and a DPT or health sciences pathway. Time standards for D2 championship-level recruiting. Full athletic scholarship expectations (D2 has 8.1 equivalency). Specific school recommendations with why each fits Tolga.')">
+    <button class="sb-btn" onclick="sq('Give me a thorough D2 deep dive for Tolga. Which D2 programs offer strong swimming AND a DPT or health sciences pathway? Include time standards for D2 championship-level recruiting, full athletic scholarship expectations (D2 has 8.1 equivalency), and specific school recommendations with reasons each fits Tolga.')">
       <span class="ic">🥈</span>D2 deep dive
     </button>
-    <button class="sb-btn" onclick="sq('Give me a thorough D3 deep dive for Tolga. Cover: best D3 schools combining elite swimming and a DPT or pre-PT pipeline (UAA, NESCAC, Centennial, NCAC conferences). Merit aid ranges at top schools. How net cost at elite D3 schools compares to D1/D2 partial scholarships. Why D3 is a strategically strong choice for a pre-DPT student-athlete.')">
+    <button class="sb-btn" onclick="sq('Give me a thorough D3 deep dive for Tolga. Which D3 schools combine elite swimming and a DPT or pre-PT pipeline (UAA, NESCAC, Centennial, NCAC)? Include merit aid ranges, how net cost at elite D3 schools compares to D1/D2 partial scholarships, and why D3 is strategically strong for a pre-DPT athlete.')">
       <span class="ic">🎓</span>D3 deep dive
     </button>
 
-    <div class="sb-label" style="margin-top:4px">School &amp; Scholarship</div>
-    <button class="sb-btn" onclick="sq('Based on Tolga\'s current times, which specific D1, D2, and D3 schools with DPT programs are the best fits RIGHT NOW for recruiting? Then show me which additional schools become realistic by senior year if he develops as projected. Format as a tiered list.')">
+    <div class="sb-lbl" style="margin-top:4px">School &amp; Scholarship</div>
+    <button class="sb-btn" onclick="sq('Based on Tolga\'s current times, which specific D1, D2, and D3 schools with DPT programs are the best fits RIGHT NOW? Which additional schools become realistic by senior year if he develops as projected? Format as a tiered list with reasons for each school.')">
       <span class="ic">🏫</span>School fit analysis
     </button>
-    <button class="sb-btn" onclick="sq('Give me a complete scholarship strategy for Tolga. Break down: D1 equivalency scholarship ranges for his event profile, D2 full scholarship potential, D3 merit and need-based aid at top academic schools. What GPA, test scores, and times does he need to maximize each type? How can athletic and merit scholarships be stacked?')">
+    <button class="sb-btn" onclick="sq('Give me a complete scholarship strategy for Tolga across all divisions. D1 equivalency ranges for his event profile, D2 full scholarship potential, D3 merit and need-based aid at top academic schools. What GPA, test scores, and times does he need to maximize each? How can athletic and merit scholarships be stacked?')">
       <span class="ic">💰</span>Scholarship strategy
     </button>
-    <button class="sb-btn" onclick="sq('Create a detailed time standards target sheet for Tolga. For each of his key events (100 back, 200 back, 200 IM, 400 IM, 100 breast), show the time needed for D1 mid-major recruiting, D2 championship level, and D3 elite level. Compare to his current times and show the gap. Project where he could realistically be by junior and senior year.')">
+    <button class="sb-btn" onclick="sq('Create a detailed time standards target sheet for Tolga. For each key event (100 back, 200 back, 200 IM, 400 IM, 100 breast), show the time needed for D1 mid-major, D2 championship, and D3 elite recruiting. Compare to his current times, show the gap, and project where he could realistically be by junior and senior year.')">
       <span class="ic">🎯</span>Scholarship times by division
     </button>
 
-    <div class="sb-label" style="margin-top:4px">Planning</div>
-    <button class="sb-btn" onclick="sq('Build Tolga a full college recruiting action plan. Month by month from now (March 2026, sophomore year) through National Letter of Intent signing day. Cover: what to do each month for swimming performance, academics, coach outreach, campus visits, applications, and financial aid.')">
+    <div class="sb-lbl" style="margin-top:4px">Planning</div>
+    <button class="sb-btn" onclick="sq('Build Tolga a full recruiting action plan — month by month from now through NLI signing day. Cover swimming performance goals, academics, coach outreach schedule, campus visits, applications, and financial aid deadlines.')">
       <span class="ic">📅</span>Recruiting timeline
     </button>
-    <button class="sb-btn" onclick="sq('Post-race debrief: ask me which event Tolga just swam at NCSA and what his time was. Then analyze the swim — compare to his goals, what it means for his recruiting tier, and suggest focus areas.')">
+    <button class="sb-btn" onclick="sq('Post-race debrief mode. Ask me which event Tolga just swam and what his time was. Then analyze the swim: compare to his goals, assess what it means for his recruiting tier, identify what it changes in his school target list, and suggest training focus areas.')">
       <span class="ic">🏊</span>Post-race debrief
     </button>
-    <button class="sb-btn" onclick="sq('What are the NCAA D1, D2, and D3 contact rules for swimming recruiting? When can coaches first contact Tolga, what forms of contact are allowed at each stage, and what can Tolga proactively do right now as a sophomore?')">
+    <button class="sb-btn" onclick="sq('What are the NCAA D1, D2, and D3 contact rules for swimming recruiting? When can coaches first contact Tolga, what forms of contact are allowed at each stage, and what can Tolga proactively do right now?')">
       <span class="ic">📋</span>NCAA contact rules
     </button>
-    <button class="sb-btn" onclick="sq('Walk me through the complete Doctor of Physical Therapy career pathway for a student-athlete like Tolga: undergraduate prerequisites, best majors, shadowing hour requirements, the 3+3 accelerated option, DPT program structure, sports medicine specialization via SCS certification, career settings and salary ranges.')">
+    <button class="sb-btn" onclick="sq('Walk me through the complete DPT career pathway for a student-athlete like Tolga: undergraduate prerequisites, best majors, required observation hours, the 3+3 accelerated option, DPT program structure, sports medicine specialization via SCS certification, and realistic career settings and salary ranges.')">
       <span class="ic">🩺</span>DPT career roadmap
     </button>
-
   </div>
 
-  <!-- TIMES PANEL — outside the scroll area so it's always visible -->
-  <div style="padding:0 6px 6px; flex-shrink:0;">
-    <div class="sb-label" style="padding-top:6px">Best Times</div>
+  <!-- TIMES PANEL — always visible, pinned to bottom -->
+  <div class="times-panel">
+    <div class="times-lbl">
+      Best Times
+      <span class="times-src" id="times-src">loading…</span>
+    </div>
     <div class="times-box">
       <div class="times-hdr">
         <div class="course-toggle">
@@ -332,7 +367,7 @@ textarea:focus { border-color: rgba(201,168,76,.45); }
       </div>
       <div id="times-tbl"></div>
     </div>
-    <div class="times-foot">🔴 new PB &nbsp;·&nbsp; ✏ enter meet results &nbsp;·&nbsp; ⟳ search SwimCloud</div>
+    <div class="times-foot">✏ session edit &nbsp;·&nbsp; update times.json to save &nbsp;·&nbsp; ⟳ sync</div>
   </div>
 </div>
 
@@ -344,21 +379,22 @@ textarea:focus { border-color: rgba(201,168,76,.45); }
       <div class="mav coach">RC</div>
       <div class="bub">
         <h3>Welcome — let's get Tolga recruited.</h3>
-        <p>I'm your personal recruiting coach, loaded with Tolga's full profile and times. Here's what you can do:</p>
+        <p>I'm your personal recruiting coach. His times load automatically from <strong>times.json</strong> in your GitHub repo — every device always sees the latest version. Here's how everything works:</p>
         <ul>
-          <li><strong>🔍 Find a Coach</strong> — one button, any school, any division. Type the name and I'll search for the head coach's name and contact info, then write the email.</li>
-          <li><strong>✏ Update times</strong> — use the edit button on the times panel after each meet. New PBs are flagged red and I'll immediately update all recommendations.</li>
-          <li><strong>⟳ Sync SwimCloud</strong> — searches publicly indexed results. Works best a day or two after a meet when results are published. For immediate post-meet updates, ✏ manual entry is faster.</li>
+          <li><strong>🔍 Find a Coach</strong> — type any school, any division. I'll search for the head coach's name and email, then write the personalized email.</li>
+          <li><strong>Update times permanently</strong> — edit <code>times.json</code> directly on GitHub after each meet. Every device refreshes automatically on next open.</li>
+          <li><strong>✏ Edit button</strong> — for quick session-only changes (great for testing mid-meet). Won't save across devices.</li>
+          <li><strong>⟳ Sync</strong> — searches for recently published meet results for Tolga.</li>
         </ul>
-        <p>Just synced live from SwimCloud: Tolga's <strong>LCM times have dropped massively</strong> since last update — 100 Back is now <strong>1:01.47</strong> and 200 Back <strong>2:12.31</strong> (both from Speedo Sectionals - Richmond, May 2026), down from the 2023 numbers we'd been using. His 200 Breast sits at <strong>2:04.76 SCY</strong> (#60 nationally per SwimIntel) and 100 Free improved to <strong>48.92</strong>. Toggle SCY/LCM on the times panel to compare. What do you want to work on first?</p>
+        <p>What do you want to work on first?</p>
       </div>
     </div>
   </div>
 
   <div class="chips" id="chips">
     <button class="chip" onclick="openFinder()">🔍 Find any coach</button>
-    <button class="chip" onclick="sq('Give me a D3 deep dive — best schools for Tolga combining elite swimming and a DPT program, with realistic merit aid numbers.')">D3 + DPT deep dive</button>
-    <button class="chip" onclick="sq('School fit analysis: which D1, D2 and D3 programs fit Tolga right now vs by senior year?')">School fit analysis</button>
+    <button class="chip" onclick="sq('D3 deep dive — best schools for Tolga combining elite swimming and a DPT program, with realistic merit aid numbers.')">D3 + DPT deep dive</button>
+    <button class="chip" onclick="sq('School fit analysis: which D1, D2, and D3 programs fit Tolga right now vs by senior year?')">School fit analysis</button>
     <button class="chip" onclick="sq('Post-race debrief: ask me which event Tolga just swam and his time.')">Post-race debrief</button>
     <button class="chip" onclick="sq('Build a full month-by-month recruiting action plan from now through signing day.')">Full action plan</button>
   </div>
@@ -368,69 +404,136 @@ textarea:focus { border-color: rgba(201,168,76,.45); }
       <textarea id="inp" rows="1" placeholder="Ask anything — e.g. 'find the coach at Tufts and write an email'" onkeydown="handleKey(event)" oninput="grow(this)"></textarea>
       <button class="sbtn" id="sbtn" onclick="send()">↑</button>
     </div>
-    <p class="hint">Claude-powered · Web search active for coach lookup · Tolga's profile pre-loaded into every answer</p>
+    <p class="hint">Claude-powered · Web search active for coach lookup · Times loaded from times.json · Passphrase-protected proxy</p>
   </div>
 </div>
 
 </div><!-- /body -->
+</div><!-- /app -->
 
 <script>
 // ═══════════════════════════════════════════════════
-// TIMES DATA — SCY + LCM
+// WORKER PROXY + FAMILY PASSPHRASE
 // ═══════════════════════════════════════════════════
-var EVTS     = ['50 Free','100 Free','200 Free','500 Free','1000 Free','50 Back','100 Back','200 Back','50 Breast','100 Breast','200 Breast','50 Fly','100 Fly','200 Fly','200 IM','400 IM'];
-var EVTS_LCM = ['50 Free','100 Free','200 Free','400 Free','50 Back','100 Back','200 Back','50 Breast','100 Breast','200 Breast','50 Fly','100 Fly','200 Fly','200 IM','400 IM'];
-var FLD     = {'50 Free':'f-50fr','100 Free':'f-100fr','200 Free':'f-200fr','500 Free':'f-500fr','1000 Free':'f-1000fr','50 Back':'f-50b','100 Back':'f-100b','200 Back':'f-200b','50 Breast':'f-50br','100 Breast':'f-100br','200 Breast':'f-200br','50 Fly':'f-50fl','100 Fly':'f-100fl','200 Fly':'f-200fl','200 IM':'f-200im','400 IM':'f-400im'};
-var FLD_LCM = {'50 Free':'lf-50fr','100 Free':'lf-100fr','200 Free':'lf-200fr','400 Free':'lf-400fr','50 Back':'lf-50b','100 Back':'lf-100b','200 Back':'lf-200b','50 Breast':'lf-50br','100 Breast':'lf-100br','200 Breast':'lf-200br','50 Fly':'lf-50fl','100 Fly':'lf-100fl','200 Fly':'lf-200fl','200 IM':'lf-200im','400 IM':'lf-400im'};
+// Fill this in after you deploy the Cloudflare Worker (see DEPLOY.md).
+var WORKER_URL = 'https://tolga-recruiting-proxy.levent-kilic-contact.workers.dev';
 
-// D1 mid-major cutoff, D2 cutoff (seconds) — approximate benchmarks for context only
-var CUTS     = {'50 Free':[20.5,22.0],'100 Free':[46.0,49.0],'200 Free':[101,107],'500 Free':[272,288],'1000 Free':[560,600],'50 Back':[23.5,25.0],'100 Back':[49.5,52.5],'200 Back':[107,115],'50 Breast':[25.5,27.5],'100 Breast':[56.0,60.0],'200 Breast':[123,132],'50 Fly':[21.5,23.5],'100 Fly':[49.0,53.0],'200 Fly':[107,118],'200 IM':[110,116],'400 IM':[237,252]};
-var CUTS_LCM = {'50 Free':[24.0,26.0],'100 Free':[52.5,56.5],'200 Free':[115,124],'400 Free':[245,265],'50 Back':[27.5,29.5],'100 Back':[56.0,60.5],'200 Back':[122,132],'50 Breast':[29.0,31.5],'100 Breast':[64.0,69.0],'200 Breast':[140,152],'50 Fly':[25.0,27.5],'100 Fly':[56.0,61.0],'200 Fly':[122,135],'200 IM':[124,133],'400 IM':[270,290]};
+var PASSPHRASE = '';
 
-// SCY bests — pulled live from SwimCloud Personal Bests table (swimcloud.com/swimmer/1903826/times/), June 2026
+function startApp() {
+  var k = document.getElementById('key-inp').value.trim();
+  if (!k) {
+    document.getElementById('gate-err').textContent = 'Please enter the passphrase.';
+    document.getElementById('gate-err').classList.add('show');
+    return;
+  }
+  PASSPHRASE = k;
+  localStorage.setItem('trc_pass', PASSPHRASE);
+  document.getElementById('gate').classList.add('off');
+  document.getElementById('app').classList.remove('off');
+  calcGrade();
+  loadTimesFromJSON();
+}
+
+function changePass() {
+  PASSPHRASE = '';
+  localStorage.removeItem('trc_pass');
+  document.getElementById('key-inp').value = '';
+  document.getElementById('gate-err').classList.remove('show');
+  document.getElementById('gate').classList.remove('off');
+  document.getElementById('app').classList.add('off');
+}
+
+// Server rejected the passphrase (wrong, or never set) — bounce back to the gate.
+function handleAuthError() {
+  localStorage.removeItem('trc_pass');
+  PASSPHRASE = '';
+  document.getElementById('gate-err').textContent = 'Incorrect passphrase — please try again.';
+  document.getElementById('gate-err').classList.add('show');
+  document.getElementById('app').classList.add('off');
+  document.getElementById('gate').classList.remove('off');
+}
+
+// ═══════════════════════════════════════════════════
+// TIMES DATA
+// ═══════════════════════════════════════════════════
+var EVTS     = ['50 Back','100 Back','200 Back','200 IM','400 IM','100 Breast','200 Breast','100 Free','200 Free','500 Free'];
+var EVTS_LCM = ['50 Back','100 Back','200 Back','200 IM','400 IM','100 Breast','200 Breast','100 Free','200 Free','400 Free'];
+var FLD  = {'50 Back':'f-50b','100 Back':'f-100b','200 Back':'f-200b','200 IM':'f-200im','400 IM':'f-400im','100 Breast':'f-100br','200 Breast':'f-200br','100 Free':'f-100fr','200 Free':'f-200fr','500 Free':'f-500fr'};
+var FLCM = {'50 Back':'lf-50b','100 Back':'lf-100b','200 Back':'lf-200b','200 IM':'lf-200im','400 IM':'lf-400im','100 Breast':'lf-100br','200 Breast':'lf-200br','100 Free':'lf-100fr','200 Free':'lf-200fr','400 Free':'lf-400fr'};
+
+// SCY tier cutoffs [D1 mid-major, D2] in seconds
+var CUTS = {'50 Back':[23.5,25.0],'100 Back':[49.5,52.5],'200 Back':[107,115],'200 IM':[110,116],'400 IM':[237,252],'100 Breast':[56.0,60.0],'200 Breast':[123,132],'100 Free':[46.0,49.0],'200 Free':[101,107],'500 Free':[272,288]};
+// LCM tier cutoffs [D1 mid-major, D2] in seconds
+var CUTS_LCM = {'50 Back':[27.5,29.5],'100 Back':[56.0,60.5],'200 Back':[122,132],'200 IM':[124,133],'400 IM':[270,290],'100 Breast':[64.0,69.0],'200 Breast':[140,152],'100 Free':[52.5,56.5],'200 Free':[115,124],'400 Free':[245,265]};
+
+// Default times (overwritten by times.json on load)
 var T = {
-  '50 Free':    {v:'22.36',  pb:false},
-  '100 Free':   {v:'48.92',  pb:true},
-  '200 Free':   {v:'1:46.41',pb:false},
-  '500 Free':   {v:'4:54.24',pb:false},
-  '1000 Free':  {v:'9:52.16',pb:false},
-  '50 Back':    {v:'24.85',  pb:false},
-  '100 Back':   {v:'51.37',  pb:false},
-  '200 Back':   {v:'1:50.89',pb:true},
-  '50 Breast':  {v:'28.06',  pb:false},
-  '100 Breast': {v:'59.53',  pb:false},
-  '200 Breast': {v:'2:04.76',pb:false},
-  '50 Fly':     {v:'25.42',  pb:false},
-  '100 Fly':    {v:'54.07',  pb:false},
-  '200 Fly':    {v:'2:04.72',pb:false},
-  '200 IM':     {v:'1:53.49',pb:false},
-  '400 IM':     {v:'4:06.03',pb:false}
+  '50 Back':{v:'',pb:false},'100 Back':{v:'51.37',pb:false},'200 Back':{v:'1:52.54',pb:false},
+  '200 IM':{v:'1:53.56',pb:false},'400 IM':{v:'4:06.03',pb:false},'100 Breast':{v:'59.53',pb:false},
+  '200 Breast':{v:'2:09.04',pb:false},'100 Free':{v:'49.15',pb:false},'200 Free':{v:'',pb:false},'500 Free':{v:'',pb:false}
 };
-
-// LCM bests — pulled live from SwimCloud Personal Bests table, June 2026
-// NOTE: 100/200 Back, 200 IM and 100 Breast replace much older LC State Championship-era times (2023) —
-// all dropped dramatically at Speedo Sectionals - Richmond (May 2026)
 var TL = {
-  '50 Free':    {v:'25.73',  pb:false},
-  '100 Free':   {v:'57.06',  pb:false},
-  '200 Free':   {v:'2:02.29',pb:false},
-  '400 Free':   {v:'5:00.94',pb:false},
-  '50 Back':    {v:'28.79',  pb:false},
-  '100 Back':   {v:'1:01.47',pb:true},
-  '200 Back':   {v:'2:12.31',pb:true},
-  '50 Breast':  {v:'32.69',  pb:false},
-  '100 Breast': {v:'1:10.40',pb:true},
-  '200 Breast': {v:'2:31.35',pb:false},
-  '50 Fly':     {v:'28.64',  pb:false},
-  '100 Fly':    {v:'1:03.01',pb:false},
-  '200 Fly':    {v:'2:28.36',pb:false},
-  '200 IM':     {v:'2:13.39',pb:true},
-  '400 IM':     {v:'4:54.35',pb:false}
+  '50 Back':{v:'',pb:false},'100 Back':{v:'1:08.94',pb:false},'200 Back':{v:'2:29.99',pb:false},
+  '200 IM':{v:'2:31.49',pb:false},'400 IM':{v:'',pb:false},'100 Breast':{v:'1:15.78',pb:false},
+  '200 Breast':{v:'',pb:false},'100 Free':{v:'',pb:false},'200 Free':{v:'',pb:false},'400 Free':{v:'',pb:false}
 };
 
-var activeCourse = 'scy';   // sidebar display toggle
-var modalTab     = 'scy';   // edit modal tab
+var activeCourse = 'scy';
 
+// ═══════════════════════════════════════════════════
+// LOAD TIMES FROM times.json
+// ═══════════════════════════════════════════════════
+async function loadTimesFromJSON() {
+  var srcEl = document.getElementById('times-src');
+  try {
+    // Add cache-busting so GitHub Pages always serves the latest version
+    var url = 'times.json?v=' + Date.now();
+    var resp = await fetch(url);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    var data = await resp.json();
+
+    // Apply SCY times
+    if (data.scy) {
+      for (var ev in data.scy) {
+        if (T.hasOwnProperty(ev)) {
+          var nv = (data.scy[ev] || '').trim();
+          var oldSecs = secs(T[ev].v);
+          var newSecs = secs(nv);
+          T[ev] = { v: nv, pb: isFinite(newSecs) && newSecs < oldSecs && !!T[ev].v };
+        }
+      }
+    }
+
+    // Apply LCM times
+    if (data.lcm) {
+      for (var ev in data.lcm) {
+        if (TL.hasOwnProperty(ev)) {
+          var nv = (data.lcm[ev] || '').trim();
+          var oldSecs = secs(TL[ev].v);
+          var newSecs = secs(nv);
+          TL[ev] = { v: nv, pb: isFinite(newSecs) && newSecs < oldSecs && !!TL[ev].v };
+        }
+      }
+    }
+
+    var updated = data.lastUpdated ? 'times.json · ' + data.lastUpdated : 'times.json';
+    srcEl.textContent = '✓ ' + updated;
+    srcEl.className = 'times-src';
+    document.getElementById('sync-note').textContent = 'Loaded from times.json';
+
+  } catch(e) {
+    // Graceful fallback to hardcoded defaults
+    srcEl.textContent = '⚠ using defaults';
+    srcEl.className = 'times-src local';
+    document.getElementById('sync-note').textContent = 'times.json not found — using defaults';
+  }
+  renderTimes();
+}
+
+// ═══════════════════════════════════════════════════
+// TIMES DISPLAY
+// ═══════════════════════════════════════════════════
 function secs(s) {
   if (!s || !s.trim()) return Infinity;
   s = s.trim();
@@ -439,60 +542,57 @@ function secs(s) {
 }
 
 function tier(ev, val, isLcm) {
-  var c = (isLcm ? CUTS_LCM : CUTS)[ev], s = secs(val);
-  if (!c || !isFinite(s)) return 'd3';
-  return s <= c[0] ? 'd1' : s <= c[1] ? 'd2' : 'd3';
+  var cuts = isLcm ? CUTS_LCM : CUTS;
+  var c = cuts[ev], sc = secs(val);
+  if (!c || !isFinite(sc)) return 'd3';
+  return sc <= c[0] ? 'd1' : sc <= c[1] ? 'd2' : 'd3';
 }
 
 function switchCourse(c) {
   activeCourse = c;
-  document.getElementById('cb-scy').className = 'course-btn' + (c === 'scy' ? ' on' : '');
-  document.getElementById('cb-lcm').className = 'course-btn' + (c === 'lcm' ? ' on' : '');
+  document.getElementById('cb-scy').className = 'course-btn' + (c==='scy'?' on':'');
+  document.getElementById('cb-lcm').className = 'course-btn' + (c==='lcm'?' on':'');
   renderTimes();
 }
 
-function switchModalTab(t) {
-  modalTab = t;
-  document.getElementById('tb-scy').className = 'tabbtn' + (t === 'scy' ? ' on' : '');
-  document.getElementById('tb-lcm').className = 'tabbtn' + (t === 'lcm' ? ' on' : '');
-  document.getElementById('tp-scy').className = 'tabpanel' + (t === 'scy' ? ' on' : '');
-  document.getElementById('tp-lcm').className = 'tabpanel' + (t === 'lcm' ? ' on' : '');
+function switchModalTab(tab) {
+  document.getElementById('mtab-scy').className = 'modal-tab' + (tab==='scy'?' on':'');
+  document.getElementById('mtab-lcm').className = 'modal-tab' + (tab==='lcm'?' on':'');
+  document.getElementById('mpanel-scy').className = 'tab-panel' + (tab==='scy'?' on':'');
+  document.getElementById('mpanel-lcm').className = 'tab-panel' + (tab==='lcm'?' on':'');
 }
 
 function renderTimes() {
   var el = document.getElementById('times-tbl');
   if (!el) return;
-  var isLcm  = activeCourse === 'lcm';
-  var data   = isLcm ? TL : T;
+  var isLcm = activeCourse === 'lcm';
+  var data = isLcm ? TL : T;
   var evList = isLcm ? EVTS_LCM : EVTS;
-  var rows = '';
-  var any = false;
+  var rows = '', any = false;
   for (var i = 0; i < evList.length; i++) {
     var ev = evList[i], d = data[ev];
     if (!d || !d.v) continue;
     any = true;
     var t = tier(ev, d.v, isLcm);
-    var tLabel = t === 'd1' ? 'D1↑' : t === 'd2' ? 'D2' : 'D3';
-    rows += '<div class="tr">'
-      + '<span class="ev">' + ev + '</span>'
-      + (d.pb ? '<span class="pb-dot" title="New PB"></span>' : '')
-      + '<span class="tm">' + d.v + '</span>'
-      + '<span class="tier t' + t + '">' + tLabel + '</span>'
-      + '</div>';
+    var tLabel = t==='d1'?'D1↑':t==='d2'?'D2':'D3';
+    rows += '<div class="tr"><span class="ev">'+ev+'</span>'
+      +(d.pb?'<span class="pb-dot" title="New PB"></span>':'')
+      +'<span class="tm">'+d.v+'</span>'
+      +'<span class="tier t'+t+'">'+tLabel+'</span></div>';
   }
-  el.innerHTML = any ? rows : '<div class="no-times">No ' + (isLcm ? 'LCM' : 'SCY') + ' times entered yet</div>';
+  el.innerHTML = any ? rows : '<div class="no-times">No '+(isLcm?'LCM':'SCY')+' times loaded</div>';
 }
 
 function timesText() {
   var lines = ['SCY (Short Course Yards):'];
-  for (var i = 0; i < EVTS.length; i++) {
-    var ev = EVTS[i], d = T[ev];
-    if (d && d.v) lines.push('  ' + ev + ': ' + d.v + (d.pb ? ' (NEW PB)' : ''));
+  for (var i=0; i<EVTS.length; i++) {
+    var ev=EVTS[i], d=T[ev];
+    if (d && d.v) lines.push('  '+ev+': '+d.v+(d.pb?' (NEW PB)':''));
   }
   lines.push('LCM (Long Course Meters):');
-  for (var j = 0; j < EVTS_LCM.length; j++) {
-    var ev2 = EVTS_LCM[j], d2 = TL[ev2];
-    if (d2 && d2.v) lines.push('  ' + ev2 + ': ' + d2.v + (d2.pb ? ' (NEW PB)' : ''));
+  for (var i=0; i<EVTS_LCM.length; i++) {
+    var ev=EVTS_LCM[i], d=TL[ev];
+    if (d && d.v) lines.push('  '+ev+': '+d.v+(d.pb?' (NEW PB)':''));
   }
   return lines.join('\n');
 }
@@ -501,22 +601,22 @@ function timesText() {
 // MODALS
 // ═══════════════════════════════════════════════════
 function openTimesModal() {
-  for (var i = 0; i < EVTS.length; i++) {
-    var ev = EVTS[i], el = document.getElementById(FLD[ev]);
-    if (el) el.value = T[ev] ? T[ev].v : '';
+  for (var i=0; i<EVTS.length; i++) {
+    var ev=EVTS[i], el=document.getElementById(FLD[ev]);
+    if (el) el.value = T[ev]?T[ev].v:'';
   }
-  for (var j = 0; j < EVTS_LCM.length; j++) {
-    var ev2 = EVTS_LCM[j], el2 = document.getElementById(FLD_LCM[ev2]);
-    if (el2) el2.value = TL[ev2] ? TL[ev2].v : '';
+  for (var i=0; i<EVTS_LCM.length; i++) {
+    var ev=EVTS_LCM[i], el=document.getElementById(FLCM[ev]);
+    if (el) el.value = TL[ev]?TL[ev].v:'';
   }
-  switchModalTab(activeCourse); // open on whichever course is currently displayed
+  switchModalTab(activeCourse);
   document.getElementById('ov-times').classList.remove('off');
 }
 
 function openFinder() {
-  document.getElementById('finder-inp').value = '';
+  document.getElementById('finder-inp').value='';
   document.getElementById('ov-finder').classList.remove('off');
-  setTimeout(function(){ document.getElementById('finder-inp').focus(); }, 80);
+  setTimeout(function(){document.getElementById('finder-inp').focus();},80);
 }
 
 function closeModal(id) {
@@ -525,138 +625,148 @@ function closeModal(id) {
 
 function saveTimes() {
   var updated = [];
-
-  for (var i = 0; i < EVTS.length; i++) {
-    var ev = EVTS[i];
-    var el = document.getElementById(FLD[ev]);
+  // SCY
+  for (var i=0; i<EVTS.length; i++) {
+    var ev=EVTS[i], el=document.getElementById(FLD[ev]);
     if (!el) continue;
-    var nv = el.value.trim();
-    if (!nv) continue;
-    var os = secs(T[ev] ? T[ev].v : ''), ns = secs(nv);
-    var isPB = isFinite(ns) && ns < os;
-    if (nv !== (T[ev] ? T[ev].v : '')) {
-      T[ev] = { v: nv, pb: isPB };
-      updated.push('SCY ' + ev + ': ' + nv + (isPB ? ' 🔴 NEW PB' : ''));
+    var nv=el.value.trim(); if (!nv) continue;
+    var os=secs(T[ev]?T[ev].v:''), ns=secs(nv);
+    if (nv!==(T[ev]?T[ev].v:'')) {
+      T[ev]={v:nv,pb:isFinite(ns)&&ns<os};
+      updated.push('SCY '+ev+': '+nv+(T[ev].pb?' 🔴':''));
     }
   }
-
-  for (var j = 0; j < EVTS_LCM.length; j++) {
-    var ev2 = EVTS_LCM[j];
-    var el2 = document.getElementById(FLD_LCM[ev2]);
-    if (!el2) continue;
-    var nv2 = el2.value.trim();
-    if (!nv2) continue;
-    var os2 = secs(TL[ev2] ? TL[ev2].v : ''), ns2 = secs(nv2);
-    var isPB2 = isFinite(ns2) && ns2 < os2;
-    if (nv2 !== (TL[ev2] ? TL[ev2].v : '')) {
-      TL[ev2] = { v: nv2, pb: isPB2 };
-      updated.push('LCM ' + ev2 + ': ' + nv2 + (isPB2 ? ' 🔴 NEW PB' : ''));
+  // LCM
+  for (var i=0; i<EVTS_LCM.length; i++) {
+    var ev=EVTS_LCM[i], el=document.getElementById(FLCM[ev]);
+    if (!el) continue;
+    var nv=el.value.trim(); if (!nv) continue;
+    var os=secs(TL[ev]?TL[ev].v:''), ns=secs(nv);
+    if (nv!==(TL[ev]?TL[ev].v:'')) {
+      TL[ev]={v:nv,pb:isFinite(ns)&&ns<os};
+      updated.push('LCM '+ev+': '+nv+(TL[ev].pb?' 🔴':''));
     }
   }
-
   closeModal('ov-times');
   renderTimes();
   if (updated.length) {
-    showStatus('✓ Times saved: ' + updated.join(' · '), 'ok');
-    fromSystem('Tolga just updated his times after a meet. Changes: ' + updated.join(', ') + '. Briefly summarize what changed in his recruiting picture — any tier upgrades, and does this affect school priorities or pending emails?');
+    showStatus('✓ Session times updated: '+updated.join(' · ')+' — edit times.json on GitHub to save permanently.','ok');
+    fromSystem('Tolga\'s times were updated this session. Changes: '+updated.join(', ')+'. Briefly note what changed in his recruiting picture.');
   } else {
-    showStatus('No changes detected.', 'ok');
+    showStatus('No changes detected.','ok');
   }
 }
 
 function runFinder() {
-  var school = document.getElementById('finder-inp').value.trim();
+  var school=document.getElementById('finder-inp').value.trim();
   if (!school) return;
   closeModal('ov-finder');
-  sq('Search the web to find the current head swimming coach at ' + school + '. Find their full name, email address, title, and any relevant program information. Present the coach details clearly, then ask if I would like you to write a personalized recruiting email from Tolga to this coach.');
+  sq('Search the web to find the current head swimming coach at '+school+'. Find their full name, email address, title, and relevant program info. Present the coach details clearly, then ask if I would like you to write a personalized recruiting email from Tolga.');
 }
 
 // ═══════════════════════════════════════════════════
 // SWIMCLOUD SYNC
 // ═══════════════════════════════════════════════════
 async function doSync() {
-  var btn = document.getElementById('sync-btn');
-  btn.disabled = true;
-  btn.classList.add('spin');
-  showStatus('Searching for Tolga\'s latest meet results…', 'ok');
+  var btn=document.getElementById('sync-btn');
+  btn.disabled=true; btn.classList.add('spin');
+  showStatus('Searching for Tolga\'s latest meet results…','info');
 
-  var searchPrompt = 'Search the web for recent swim meet results for "Tolga Kilic" swimmer from NCAP Nations Capital Swim Club Virginia 2026. Look for any results from NCSA Spring Championships March 2026, VHSL State Championships February 2026, or any other recent meets. His SwimCloud profile is https://www.swimcloud.com/swimmer/1903826/ and his SwimIntel profile is https://app.swimintel.ai/recruits/0198a10f-8155-7eda-b862-8cb40095d376\n\nFind any short course yard (SCY) times for these events: 50 Back, 100 Back, 200 Back, 200 IM, 400 IM, 100 Breast, 200 Breast, 100 Free.\n\nHis known current bests:\n100 Back: 51.37, 200 Back: 1:52.54, 200 IM: 1:53.49, 400 IM: 4:06.03, 100 Breast: 59.53, 200 Breast: 2:04.76, 100 Free: 49.15\n\nIf you find any times faster than these, return them in a JSON block first like:\n{"100 Back":"","200 Back":"","200 IM":"","400 IM":"","100 Breast":"","200 Breast":"","100 Free":"","50 Back":""}\n\nUse empty string for any event where you did not find a faster time. After the JSON, briefly describe what you found.';
+  var prompt='Search the web for recent swim meet results for "Tolga Kilic" swimmer NCAP Nations Capital Swim Club Virginia 2026. His SwimCloud: https://www.swimcloud.com/swimmer/1903826/\n\nLook for SCY times in: 50 Back, 100 Back, 200 Back, 200 IM, 400 IM, 100 Breast, 200 Breast, 100 Free.\n\nCurrent bests: 100 Back:51.37, 200 Back:1:52.54, 200 IM:1:53.56, 400 IM:4:06.03, 100 Breast:59.53, 200 Breast:2:09.04, 100 Free:49.15\n\nIf you find faster times, return a JSON block first:\n{"100 Back":"","200 Back":"","200 IM":"","400 IM":"","100 Breast":"","200 Breast":"","100 Free":"","50 Back":""}\nEmpty string = not found faster. Then briefly describe what you found.';
 
   try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 600,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        messages: [{ role: 'user', content: searchPrompt }]
-      })
+    var resp=await fetch(WORKER_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Family-Passphrase':PASSPHRASE},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,tools:[{type:'web_search_20250305',name:'web_search'}],messages:[{role:'user',content:prompt}]})
     });
-    var data = await resp.json();
-    var text = (data.content || []).map(function(c){ return c.text || ''; }).join('');
-    var jm = text.match(/\{[^{}]+\}/);
-    var updated = [];
+    if (resp.status===401) { btn.disabled=false; btn.classList.remove('spin'); handleAuthError(); return; }
+    if (resp.status===429) { showStatus('⚠ Daily usage limit reached — try again tomorrow.','err'); btn.disabled=false; btn.classList.remove('spin'); return; }
+    var data=await resp.json();
+    if (data.error) throw new Error(data.error.message || data.error);
+    var text=(data.content||[]).map(function(c){return c.text||'';}).join('');
+    var jm=text.match(/\{[^{}]+\}/);
+    var found=[];
     if (jm) {
       try {
-        var parsed = JSON.parse(jm[0]);
+        var parsed=JSON.parse(jm[0]);
         for (var ev in parsed) {
-          if (!parsed[ev] || !T.hasOwnProperty(ev)) continue;
-          var nv = parsed[ev].trim();
-          if (!nv) continue;
-          var ns = secs(nv), os = secs(T[ev] ? T[ev].v : '');
-          if (isFinite(ns) && (ns < os || !T[ev].v)) {
-            T[ev] = { v: nv, pb: ns < os && !!T[ev].v };
-            updated.push(ev + ': ' + nv + (T[ev].pb ? ' 🔴' : ''));
+          if (!parsed[ev]||!T.hasOwnProperty(ev)) continue;
+          var nv=parsed[ev].trim(); if (!nv) continue;
+          var ns=secs(nv), os=secs(T[ev]?T[ev].v:'');
+          if (isFinite(ns)&&(ns<os||!T[ev].v)) {
+            T[ev]={v:nv,pb:ns<os&&!!T[ev].v};
+            found.push(ev+': '+nv+(T[ev].pb?' 🔴':''));
           }
         }
-      } catch(e) {}
+      } catch(e){}
     }
     renderTimes();
-    var now = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-    document.getElementById('sync-note').textContent = 'Last searched ' + now;
-    if (updated.length) {
-      showStatus('✓ Found updates: ' + updated.join(' · '), 'ok');
-      fromSystem('SwimCloud search found updated times for Tolga: ' + updated.join(', ') + '. Briefly note what changed and how it affects his recruiting outlook.');
+    var now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('sync-note').textContent='Searched '+now;
+    if (found.length) {
+      showStatus('✓ Found: '+found.join(' · ')+' — remember to update times.json on GitHub to make permanent!','ok');
+      fromSystem('SwimCloud search found updated times for Tolga: '+found.join(', ')+'. Note what changed in his recruiting outlook.');
     } else {
-      // Show whatever the AI found as a chat message
-      var narrative = text.replace(/\{[^{}]+\}/, '').trim();
-      showStatus('Sync complete — see results below.', 'ok');
-      if (narrative) addMsg('coach', fmt(narrative));
-      else showStatus('No new times found. Use ✏ to enter results manually right after a meet.', 'ok');
+      var narrative=text.replace(/\{[^{}]+\}/,'').trim();
+      if (narrative) addMsg('coach',fmt(narrative));
+      showStatus('Sync complete — no faster times found. Update times.json on GitHub after meets.','info');
     }
   } catch(e) {
-    showStatus('⚠ Network error — use ✏ to enter times manually.', 'err');
+    showStatus('⚠ '+(e.message||'Network error')+' — update times.json on GitHub instead.','err');
   }
-  btn.disabled = false;
-  btn.classList.remove('spin');
+  btn.disabled=false; btn.classList.remove('spin');
 }
 
 // ═══════════════════════════════════════════════════
 // STATUS BAR
 // ═══════════════════════════════════════════════════
 var _stTimer;
-function showStatus(msg, type) {
-  var el = document.getElementById('status');
-  el.textContent = msg;
-  el.className = 'status ' + (type || 'ok');
+function showStatus(msg,type) {
+  var el=document.getElementById('status');
+  el.textContent=msg; el.className='status '+(type||'ok');
   clearTimeout(_stTimer);
-  _stTimer = setTimeout(function(){ el.className = 'status'; }, 6000);
+  _stTimer=setTimeout(function(){el.className='status';},7000);
 }
 
 // ═══════════════════════════════════════════════════
-// GRADE LABEL FOR SYSTEM PROMPT
+// GRADE CALCULATOR
 // ═══════════════════════════════════════════════════
+function calcGrade() {
+  var now=new Date(), m=now.getMonth()+1, y=now.getFullYear();
+  var syStart=(m>=9)?y:y-1, syEnd=syStart+1;
+  var grade=12-(2028-syEnd);
+  grade=Math.max(9,Math.min(12,grade));
+  var names={9:'Freshman',10:'Sophomore',11:'Junior',12:'Senior'};
+  var ords={9:'9th Grade',10:'10th Grade',11:'11th Grade',12:'12th Grade'};
+  var seasons={9:'Freshman Year',10:'Sophomore Year',11:'Junior Year ⚡',12:'Senior Year'};
+  var statusText='', statusClass='';
+  if (grade===10) {
+    if (m>=9){statusText='● D2 contact open · D3 open';statusClass='rs-active';}
+    else if (m>=6){statusText='● D1 contact opens June 15';statusClass='rs-active';}
+    else{statusText='◎ D3 open · D1/D2 window approaching';statusClass='rs-soon';}
+  } else if (grade===11) {
+    statusText='● Prime recruiting window — all open'; statusClass='rs-active';
+  } else if (grade===12) {
+    statusText='● Senior — commitment & signing'; statusClass='rs-active';
+  } else {
+    statusText='◎ Pre-recruiting — build profile'; statusClass='rs-soon';
+  }
+  document.getElementById('grade-label').textContent=names[grade];
+  document.getElementById('grade-sub').textContent=ords[grade]+' · '+syStart+'–'+String(syEnd).slice(2);
+  document.getElementById('recruit-status').textContent=statusText;
+  document.getElementById('recruit-status').className='recruit-status '+statusClass;
+  var sb=document.getElementById('season-badge');
+  sb.textContent=seasons[grade];
+  if (grade===11){sb.style.borderColor='var(--orange)';sb.style.color='var(--orange)';sb.style.background='rgba(245,166,35,0.07)';}
+}
+
 function getCurrentGradeLabel() {
-  var now = new Date();
-  var month = now.getMonth() + 1;
-  var year = now.getFullYear();
-  var schoolYearStart = (month >= 9) ? year : year - 1;
-  var schoolYearEnd = schoolYearStart + 1;
-  var grade = 12 - (2028 - schoolYearEnd);
-  grade = Math.max(9, Math.min(12, grade));
-  var names = { 9:'Freshman (9th grade)', 10:'Sophomore (10th grade)', 11:'Junior (11th grade)', 12:'Senior (12th grade)' };
-  return names[grade] || 'Sophomore (10th grade)';
+  var now=new Date(), m=now.getMonth()+1, y=now.getFullYear();
+  var syEnd=((m>=9)?y:y-1)+1;
+  var grade=Math.max(9,Math.min(12,12-(2028-syEnd)));
+  var n={9:'Freshman (9th grade)',10:'Sophomore (10th grade)',11:'Junior (11th grade)',12:'Senior (12th grade)'};
+  return n[grade]||'Sophomore (10th grade)';
 }
 
 // ═══════════════════════════════════════════════════
@@ -664,275 +774,161 @@ function getCurrentGradeLabel() {
 // ═══════════════════════════════════════════════════
 function buildSys() {
   return 'You are an expert college swimming recruiting coach personally assigned to Tolga Kilic. You have web search — USE IT when asked to find coaches, emails, or program info.\n\n'
-    + '## TOLGA\'S PROFILE\n'
-    + 'Name: Tolga Kilic | School: Riverside High School, Leesburg, VA | Club: Nations Capital Swim Club (NCAP)\n'
-    + 'Class of 2028 | Current grade: ' + getCurrentGradeLabel() + ' | SwimIntel: #241 national overall, Impact Rating 90.44, #60 national in 200Y Breaststroke | SwimCloud #436 national, #30 Virginia, Power Index 31.62\n'
-    + 'Goals: College swimming + maximum scholarship (athletic + merit) + Doctor of Physical Therapy (DPT) with sports medicine focus\n'
-    + 'Academic profile: Strong academics, high GPA, wants athletic and merit scholarships stacked\n\n'
-    + '## CURRENT BEST TIMES (SCY and LCM)\n' + timesText() + '\n\n'
-    + '## EVENT IDENTITY\n'
-    + 'Tolga is an IM swimmer, backstroker, and breaststroker. Primary events per SwimIntel: 200 Breast, 200 IM, 400 IM. Also strong in 100/200 back. '
-    + 'His 200 Breast at #60 nationally (2:04.76) is a recent breakthrough that opens a second relay leg (breaststroke medley leg) alongside backstroke. '
-    + 'Multi-event versatility across 5+ individual events is his biggest recruiting asset.\n\n'
-    + '## RECRUITING TIER\n'
-    + '- D1 Power 5: Aspirational (100 back needs ~47-48 by senior year)\n'
-    + '- D1 Mid-Major (CAA, NEC, MAC, Patriot, A-10): Strong target — 100 back projecting ~49 by senior year\n'
-    + '- D2 Championship: Already competitive — full athletic scholarships (8.1 equivalency) possible\n'
-    + '- D3 Elite (UAA, NESCAC, Centennial, NCAC): Top recruit NOW — strong merit/need aid available\n\n'
-    + '## TOP TARGET SCHOOLS (DPT + Swimming)\n'
-    + 'D1: Northeastern (CAA/best-value DPT/co-op), Sacred Heart (NEC/3+3 DPT), Delaware (CAA/#1-2 DPT), Pitt (ACC/Top 5 DPT), Miami (ACC/Top 15 DPT), Iowa (Big Ten/Top 10 DPT)\n'
-    + 'D2: Shenandoah (CAC/DPT+MSAT dual/45 min from Leesburg), Gannon (GLIAC/CAPTE DPT on campus)\n'
-    + 'D3: Emory (UAA/top-20 univ+DPT — possibly #1 overall fit), WashU StL (UAA/Top 15+DPT in School of Medicine), Tufts (NESCAC/DPT+Boston), Johns Hopkins (Centennial/world-class pre-PT/1hr from Leesburg), Rochester (UAA/UR Medical Center), Kenyon (NCAC/31 consecutive D3 national titles+pre-health)\n\n'
-    + '## FINDING COACHES — INSTRUCTIONS\n'
-    + '1. Search web: "[School] swimming head coach", "[School] swim coach email", "[School] athletics swimming staff directory"\n'
-    + '2. Present findings clearly:\n'
-    + '   **Coach:** [Full Name]\n'
-    + '   **Email:** [email or "search athletics.school.edu/swimming for contact"]\n'
-    + '   **School:** [School + Division]\n'
-    + '3. Then ask: "Would you like me to write a personalized recruiting email to [Coach Name]?" — or write it immediately if asked.\n\n'
-    + '## WRITING COACH EMAILS\n'
-    + 'Always include: Subject line with event + grad year. Opening that names a specific reason Tolga wants THAT school '
-    + '(DPT program, conference, coach rep). Top 3 times by name. NCAP affiliation. VHSL State placement. '
-    + 'DPT/sports medicine academic interest — this differentiates him strongly. '
-    + 'SwimCloud: https://www.swimcloud.com/swimmer/1903826/ . Request for call or campus visit. '
-    + '180-250 words. Format in a distinct block starting with Subject:\n\n'
-    + '## SCHOLARSHIPS\n'
-    + 'D1: 9.9 equivalency/team — most swimmers get 10-50% partial. Full rides very rare outside Power 5.\n'
-    + 'D2: 8.1 equivalency — often higher % per swimmer than D1 mid-major.\n'
-    + 'D3: No athletic scholarships. BUT Emory, WashU, Tufts, Hopkins offer strong merit+need aid. Net cost often $18-32K/yr — competitive with D1/D2 partial.\n'
-    + 'Merit stacking: high GPA + SAT/ACT unlocks scholarships at ALL divisions.\n\n'
-    + '## DPT PATHWAY\n'
-    + 'Bachelor\'s first (3+3 programs like Sacred Heart save one year). Prereqs: anatomy, physiology, bio, chem, stats. '
-    + 'Best majors: exercise science, kinesiology, biology. 100-150 shadow hours before applying. '
-    + '3-year doctoral program, CAPTE accreditation required. Sports specialization: SCS via ABPTS after residency.\n\n'
-    + '## NCAA CONTACT RULES\n'
-    + 'D1: Coaches may initiate June 15 after sophomore year. Tolga can email coaches ANY TIME NOW.\n'
-    + 'D2: Coach contact allowed Sept 1 sophomore year. Tolga can always initiate.\n'
-    + 'D3: No restrictions — full contact both ways anytime.\n\n'
-    + '## CURRENT STATUS\n'
-    + 'Tolga is at NCSA Spring Championships (March 2026) — just swam 400 IM in 4:06.03. Still swimming 200 Breast, 50 Back, and 200 IM this week.\n\n'
-    + '## YOUR ROLE\n'
-    + 'Be warm, expert, specific, proactive. Reference Tolga\'s actual times in every relevant answer. '
-    + 'Do real web searches for coach names and emails. Write complete emails when asked. '
-    + 'Be honest about stretch vs. realistic targets. Address the family directly. '
-    + 'Junior year (fall 2026) is the critical window — help the family prepare for it now.';
+    +'## TOLGA\'S PROFILE\n'
+    +'Name: Tolga Kilic | School: Riverside High School, Leesburg, VA | Club: Nations Capital Swim Club (NCAP)\n'
+    +'Class of 2028 | Current grade: '+getCurrentGradeLabel()+' | SwimCloud #436 national, #30 Virginia | Power Index: 31.62\n'
+    +'Goals: College swimming + maximum scholarship (athletic + merit) + Doctor of Physical Therapy (DPT) sports medicine\n'
+    +'Academic profile: Strong academics, high GPA, wants athletic and merit scholarships stacked\n\n'
+    +'## CURRENT BEST TIMES\n'+timesText()+'\n\n'
+    +'## EVENT IDENTITY\n'
+    +'Tolga is an IM swimmer and backstroker. Primary: 100/200 back, 200/400 IM. Growing: 100/200 breast. '
+    +'Relay value: backstroke leg on both medley relays. Multi-event versatility is his biggest recruiting asset.\n\n'
+    +'## RECRUITING TIER\n'
+    +'- D1 Power 5: Aspirational (100 back needs ~47-48 by senior year)\n'
+    +'- D1 Mid-Major (CAA, NEC, MAC, Patriot, A-10): Strong target — 100 back projecting ~49 by senior year\n'
+    +'- D2 Championship: Already competitive — full athletic scholarships (8.1 equivalency) possible\n'
+    +'- D3 Elite (UAA, NESCAC, Centennial, NCAC): Top recruit NOW — strong merit/need aid available\n\n'
+    +'## TOP TARGET SCHOOLS (DPT + Swimming)\n'
+    +'D1: Northeastern (CAA/best-value DPT/co-op), Sacred Heart (NEC/3+3 DPT), Delaware (CAA/#1-2 DPT), Pitt (ACC/Top5 DPT), Miami (ACC/Top15 DPT), Iowa (Big Ten/Top10 DPT)\n'
+    +'D2: Shenandoah (CAC/DPT+MSAT dual/45min from Leesburg), Gannon (GLIAC/CAPTE DPT)\n'
+    +'D3: Emory (UAA/top-20+DPT — #1 overall fit), WashU StL (UAA/Top15+DPT), Tufts (NESCAC/DPT+Boston), Johns Hopkins (Centennial/world-class pre-PT/1hr from home), Rochester (UAA/UR Medical), Kenyon (NCAC/31 consecutive D3 national titles)\n\n'
+    +'## FINDING COACHES\n'
+    +'1. Search: "[School] swimming head coach", "[School] swim coach email", "[School] athletics swimming staff"\n'
+    +'2. Present clearly:\n   **Coach:** [Full Name]\n   **Email:** [email or best contact]\n   **School:** [School + Division]\n'
+    +'3. Ask: "Would you like me to write a recruiting email?" or write it immediately if asked.\n\n'
+    +'## WRITING COACH EMAILS\n'
+    +'Include: Subject line with event + grad year. Opening specific to THAT school. Top 3 times by name. NCAP. VHSL State placement. '
+    +'DPT/sports medicine interest. SwimCloud: https://www.swimcloud.com/swimmer/1903826/ . Request call or visit. '
+    +'180-250 words. Format in a distinct block starting with Subject:\n\n'
+    +'## SCHOLARSHIPS\n'
+    +'D1: 9.9 equivalency/team — most get 10-50% partial. Full rides very rare.\n'
+    +'D2: 8.1 equivalency — often higher % per swimmer than D1 mid-major.\n'
+    +'D3: No athletic scholarships. Emory, WashU, Tufts, Hopkins offer strong merit+need aid. Net often $18-32K/yr.\n'
+    +'Merit stacking: high GPA + SAT/ACT unlocks merit scholarships at ALL divisions.\n\n'
+    +'## DPT PATHWAY\n'
+    +'Bachelor\'s first (3+3 programs save one year). Prereqs: anatomy, physiology, bio, chem, stats. '
+    +'Best majors: exercise science, kinesiology, biology. 100-150 shadow hours required. '
+    +'3-year doctoral, CAPTE accreditation required. Sports specialization via SCS (ABPTS) after residency.\n\n'
+    +'## NCAA CONTACT RULES\n'
+    +'D1: Coaches may initiate June 15 after sophomore year. Tolga can email coaches ANY TIME.\n'
+    +'D2: Coach contact Sept 1 sophomore year. Tolga can always initiate.\n'
+    +'D3: No restrictions — both ways anytime.\n\n'
+    +'## YOUR ROLE\n'
+    +'Be warm, expert, specific, proactive. Reference actual times. Do real web searches for coaches and emails. '
+    +'Write complete emails when asked. Be honest about stretch vs. realistic targets. Address the family directly.';
 }
 
 // ═══════════════════════════════════════════════════
 // CHAT ENGINE
 // ═══════════════════════════════════════════════════
-var convo = [];
-var busy = false;
+var convo=[], busy=false;
 
-function grow(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
-}
+function grow(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
 
-function handleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
-}
+function sq(txt){document.getElementById('inp').value=txt;send();}
 
-function sq(txt) {
-  document.getElementById('inp').value = txt;
-  send();
-}
+function killChips(){var c=document.getElementById('chips');if(c)c.remove();}
 
-function killChips() {
-  var c = document.getElementById('chips');
-  if (c) c.remove();
-}
-
-function addMsg(role, html) {
-  var el = document.getElementById('msgs');
-  var wrap = document.createElement('div');
-  wrap.className = 'msg ' + role;
-  var av = document.createElement('div');
-  av.className = 'mav ' + role;
-  av.textContent = role === 'coach' ? 'RC' : 'TK';
-  var bub = document.createElement('div');
-  bub.className = 'bub';
-  bub.innerHTML = html;
-  wrap.appendChild(av);
-  wrap.appendChild(bub);
-  el.appendChild(wrap);
-  el.scrollTop = el.scrollHeight;
-}
-
-function showTyping() {
-  var el = document.getElementById('msgs');
-  var wrap = document.createElement('div');
-  wrap.className = 'msg coach'; wrap.id = 'typo';
-  var av = document.createElement('div'); av.className = 'mav coach'; av.textContent = 'RC';
-  var bub = document.createElement('div'); bub.className = 'bub';
-  bub.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+function addMsg(role,html){
+  var el=document.getElementById('msgs');
+  var wrap=document.createElement('div'); wrap.className='msg '+role;
+  var av=document.createElement('div'); av.className='mav '+role;
+  av.textContent=role==='coach'?'RC':'TK';
+  var bub=document.createElement('div'); bub.className='bub';
+  bub.innerHTML=html;
   wrap.appendChild(av); wrap.appendChild(bub);
-  el.appendChild(wrap); el.scrollTop = el.scrollHeight;
+  el.appendChild(wrap); el.scrollTop=el.scrollHeight;
 }
 
-function hideTyping() {
-  var t = document.getElementById('typo');
-  if (t) t.remove();
+function showTyping(){
+  var el=document.getElementById('msgs');
+  var wrap=document.createElement('div'); wrap.className='msg coach'; wrap.id='typo';
+  var av=document.createElement('div'); av.className='mav coach'; av.textContent='RC';
+  var bub=document.createElement('div'); bub.className='bub';
+  bub.innerHTML='<div class="typing"><span></span><span></span><span></span></div>';
+  wrap.appendChild(av); wrap.appendChild(bub);
+  el.appendChild(wrap); el.scrollTop=el.scrollHeight;
 }
+function hideTyping(){var t=document.getElementById('typo');if(t)t.remove();}
 
-function esc(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-function fmt(raw) {
-  var h = esc(raw);
-
-  // Email block: Subject: ... through a sign-off word
-  h = h.replace(/(Subject:[^\n]+[\s\S]*?(?:Sincerely|Best regards|Thank you|Warm regards|Best)[^\n]*)/g, '<div class="eml">$1</div>');
-
-  // Coach card
-  h = h.replace(/\*\*Coach:\*\*\s*([^\n]+)\n\*\*Email:\*\*\s*([^\n]+)\n\*\*(?:School|Title|Program|Position):\*\*\s*([^\n]+)/g,
-    '<div class="ccard"><span class="cname">$1</span><div class="cmeta">✉ $2<br>$3</div></div>');
-
-  // Headers
-  h = h.replace(/^###\s(.+)$/gm, '<h3>$1</h3>');
-  h = h.replace(/^##\s(.+)$/gm, '<h3>$1</h3>');
-  h = h.replace(/^####\s(.+)$/gm, '<h4>$1</h4>');
-
-  // Bold
-  h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-
-  // List items
-  h = h.replace(/^[-•]\s(.+)$/gm, '<li>$1</li>');
-  h = h.replace(/^\d+\.\s(.+)$/gm, '<li>$1</li>');
-
-  // Paragraph split
-  var parts = h.split(/\n\n+/);
-  h = parts.map(function(p) {
-    p = p.trim();
-    if (!p) return '';
-    if (p.indexOf('<li>') > -1) return '<ul>' + p + '</ul>';
-    if (/^<(h[234]|div|ul)/.test(p)) return p;
-    return '<p>' + p.replace(/\n/g, '<br>') + '</p>';
+function fmt(raw){
+  var h=esc(raw);
+  h=h.replace(/(Subject:[^\n]+[\s\S]*?(?:Sincerely|Best regards|Thank you|Warm regards|Best)[^\n]*)/g,'<div class="eml">$1</div>');
+  h=h.replace(/\*\*Coach:\*\*\s*([^\n]+)\n\*\*Email:\*\*\s*([^\n]+)\n\*\*(?:School|Title|Program|Position):\*\*\s*([^\n]+)/g,'<div class="ccard"><span class="cname">$1</span><div class="cmeta">✉ $2<br>$3</div></div>');
+  h=h.replace(/^###\s(.+)$/gm,'<h3>$1</h3>');
+  h=h.replace(/^##\s(.+)$/gm,'<h3>$1</h3>');
+  h=h.replace(/^####\s(.+)$/gm,'<h4>$1</h4>');
+  h=h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  h=h.replace(/^[-•]\s(.+)$/gm,'<li>$1</li>');
+  h=h.replace(/^\d+\.\s(.+)$/gm,'<li>$1</li>');
+  var parts=h.split(/\n\n+/);
+  h=parts.map(function(p){
+    p=p.trim(); if(!p)return'';
+    if(p.indexOf('<li>')>-1)return'<ul>'+p+'</ul>';
+    if(/^<(h[234]|div|ul)/.test(p))return p;
+    return'<p>'+p.replace(/\n/g,'<br>')+'</p>';
   }).join('');
-  h = h.replace(/<\/ul>\s*<ul>/g, '');
+  h=h.replace(/<\/ul>\s*<ul>/g,'');
   return h;
 }
 
-async function callAPI() {
-  busy = true;
-  document.getElementById('sbtn').disabled = true;
-  showTyping();
+async function callAPI(){
+  busy=true; document.getElementById('sbtn').disabled=true; showTyping();
   try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1500,
-        system: buildSys(),
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        messages: convo
-      })
+    var resp=await fetch(WORKER_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Family-Passphrase':PASSPHRASE},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,system:buildSys(),tools:[{type:'web_search_20250305',name:'web_search'}],messages:convo})
     });
-    var data = await resp.json();
-    var reply = (data.content || []).map(function(c){ return c.text || ''; }).filter(Boolean).join('');
-    if (!reply) reply = 'Something went wrong — please try again.';
-    convo.push({ role: 'assistant', content: reply });
-    hideTyping();
-    addMsg('coach', fmt(reply));
+    if (resp.status===401) { hideTyping(); busy=false; document.getElementById('sbtn').disabled=false; handleAuthError(); return; }
+    if (resp.status===429) { hideTyping(); addMsg('coach','<p>⚠ Daily usage limit reached — please try again tomorrow.</p>'); busy=false; document.getElementById('sbtn').disabled=false; return; }
+    var data=await resp.json();
+    if(data.error)throw new Error(data.error.message || data.error);
+    var reply=(data.content||[]).map(function(c){return c.text||'';}).filter(Boolean).join('');
+    if(!reply)reply='Something went wrong — please try again.';
+    convo.push({role:'assistant',content:reply});
+    hideTyping(); addMsg('coach',fmt(reply));
   } catch(e) {
     hideTyping();
-    addMsg('coach', '<p>Network error — please check your connection and try again.</p>');
+    var msg=e.message||'Network error';
+    if(msg.indexOf('401')>-1||msg.toLowerCase().indexOf('auth')>-1)
+      addMsg('coach','<p>API key error — click <strong>change API key</strong> in the header to re-enter it.</p>');
+    else
+      addMsg('coach','<p>Error: '+esc(msg)+'</p>');
   }
-  busy = false;
-  document.getElementById('sbtn').disabled = false;
+  busy=false; document.getElementById('sbtn').disabled=false;
   document.getElementById('inp').focus();
 }
 
-function fromSystem(txt) {
-  convo.push({ role: 'user', content: txt });
-  callAPI();
-}
+function fromSystem(txt){convo.push({role:'user',content:txt});callAPI();}
 
-async function send() {
-  if (busy) return;
-  var inp = document.getElementById('inp');
-  var txt = inp.value.trim();
-  if (!txt) return;
+async function send(){
+  if(busy)return;
+  var inp=document.getElementById('inp');
+  var txt=inp.value.trim(); if(!txt)return;
   killChips();
-  inp.value = ''; inp.style.height = 'auto';
-  addMsg('user', esc(txt));
-  convo.push({ role: 'user', content: txt });
+  inp.value=''; inp.style.height='auto';
+  addMsg('user',esc(txt));
+  convo.push({role:'user',content:txt});
   await callAPI();
 }
 
 // ═══════════════════════════════════════════════════
-// GRADE CALCULATOR
-// Tolga graduates June 2028. School year starts Sept 1.
-// Grade mapping: 2028 grad = 12th 2027-28, 11th 2026-27,
-//                10th 2025-26, 9th 2024-25
+// AUTO-UNLOCK — skip the gate if this browser already knows the passphrase
 // ═══════════════════════════════════════════════════
-function calcGrade() {
-  var now = new Date();
-  var month = now.getMonth() + 1; // 1-12
-  var year = now.getFullYear();
-  var gradYear = 2028;
-
-  // School year: Sept 1 of one year through Aug 31 of the next
-  // Current school year start year:
-  var schoolYearStart = (month >= 9) ? year : year - 1;
-  var schoolYearEnd = schoolYearStart + 1;
-
-  // Grade = 12 - (gradYear - schoolYearEnd)
-  var grade = 12 - (gradYear - schoolYearEnd);
-  grade = Math.max(9, Math.min(12, grade));
-
-  var gradeNames = { 9: 'Freshman', 10: 'Sophomore', 11: 'Junior', 12: 'Senior' };
-  var gradeOrds  = { 9: '9th Grade', 10: '10th Grade', 11: '11th Grade', 12: '12th Grade' };
-  var schoolYearLabel = schoolYearStart + '–' + String(schoolYearEnd).slice(2);
-
-  // Recruiting window status
-  var statusText = '';
-  var statusClass = '';
-  if (grade === 10) {
-    // D3 open anytime; D2 opens Sept 1 soph year; D1 opens June 15 after soph year
-    if (month >= 9) {
-      statusText = '● D2 contact open · D3 open';
-      statusClass = 'rs-active';
-    } else if (month === 6 || month === 7 || month === 8) {
-      statusText = '● D1 contact opens June 15 · D3 open';
-      statusClass = 'rs-active';
-    } else {
-      statusText = '◎ D3 open · D1/D2 window approaching';
-      statusClass = 'rs-window';
-    }
-  } else if (grade === 11) {
-    statusText = '● Prime recruiting window — all divisions open';
-    statusClass = 'rs-active';
-  } else if (grade === 12) {
-    statusText = '● Senior — commitment & signing season';
-    statusClass = 'rs-active';
-  } else {
-    statusText = '◎ Pre-recruiting — build the profile';
-    statusClass = 'rs-window';
+(function () {
+  var saved = localStorage.getItem('trc_pass');
+  if (saved) {
+    PASSPHRASE = saved;
+    document.getElementById('gate').classList.add('off');
+    document.getElementById('app').classList.remove('off');
+    calcGrade();
+    loadTimesFromJSON();
   }
-
-  // Season badge
-  var seasons = { 9: 'Freshman Year', 10: 'Sophomore Year', 11: 'Junior Year ⚡', 12: 'Senior Year' };
-
-  // Update DOM
-  document.getElementById('grade-label').textContent = gradeNames[grade];
-  document.getElementById('grade-sub').textContent = gradeOrds[grade] + ' · ' + schoolYearLabel;
-  document.getElementById('recruit-status').textContent = statusText;
-  document.getElementById('recruit-status').className = 'recruiting-status ' + statusClass;
-  var sb = document.getElementById('season-badge');
-  sb.textContent = seasons[grade];
-  // Flash junior year badge orange to signal importance
-  if (grade === 11) { sb.style.borderColor = 'var(--orange)'; sb.style.color = 'var(--orange)'; sb.style.background = 'rgba(245,166,35,0.07)'; }
-}
-
-// ═══════════════════════════════════════════════════
-// INIT — run immediately, no DOMContentLoaded needed
-// because script is at end of body
-// ═══════════════════════════════════════════════════
-renderTimes();
-calcGrade();
+})();
 </script>
 </body>
 </html>
