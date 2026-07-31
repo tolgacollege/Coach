@@ -201,14 +201,14 @@ textarea:focus{border-color:rgba(201,168,76,.45);}
   <div class="gate-card">
     <div class="gate-av">TK</div>
     <h1>Tolga Kilic · Recruiting Coach</h1>
-    <p class="sub">This is a private family tool. Enter the passphrase to continue — no account or API key needed.</p>
+    <p class="sub">This is a private tool. Enter the passphrase to continue — no account or API key needed.</p>
     <label class="gate-lbl" for="key-inp">Passphrase</label>
     <input type="password" class="gate-inp" id="key-inp" placeholder="Enter passphrase" onkeydown="if(event.key==='Enter')startApp()" oninput="document.getElementById('gate-err').classList.remove('show')">
     <div class="gate-err" id="gate-err">Incorrect passphrase — please try again.</div>
     <button class="gate-btn" onclick="startApp()">Start Recruiting Coach →</button>
     <div class="gate-help">
       <p><strong>Don't have the passphrase?</strong></p>
-      <p>Ask Levent for it. This page runs through a private proxy that keeps the AI key secure server-side — the passphrase just confirms you're family, not the public internet.</p>
+      <p>Ask Levent or Tolga for it. This page runs through a private proxy that keeps the AI key secure server-side — the passphrase just confirms you're family, not the public internet.</p>
     </div>
     <p class="gate-priv"><span>🔒 Private</span> — remembered on this browser only. Use "change passphrase" in the header to reset it.</p>
   </div>
@@ -281,7 +281,7 @@ textarea:focus{border-color:rgba(201,168,76,.45);}
 <div class="hdr">
   <div class="av">TK</div>
   <div class="hdr-info">
-    <h1>Tolga Kilic · Recruiting Coach</h1>
+    <h1>Tolga Kilic · Recruiting Coach ·  NCAA ID: 2601800418</h1>
     <p>Riverside HS (VA) · NCAP · Class of 2028 · Leesburg, VA</p>
   </div>
   <div class="grade-block">
@@ -292,7 +292,7 @@ textarea:focus{border-color:rgba(201,168,76,.45);}
   <div class="badges">
     <span class="badge bg">IM / Back</span>
     <span class="badge bb">Pre-DPT</span>
-    <span class="badge bn">#436 Natl · #30 VA</span>
+    <span class="badge bn">#498 Natl · #29 VA</span>
     <span class="badge bo" id="season-badge"></span>
   </div>
   <div class="hdr-right">
@@ -776,7 +776,7 @@ function buildSys() {
   return 'You are an expert college swimming recruiting coach personally assigned to Tolga Kilic. You have web search — USE IT when asked to find coaches, emails, or program info.\n\n'
     +'## TOLGA\'S PROFILE\n'
     +'Name: Tolga Kilic | School: Riverside High School, Leesburg, VA | Club: Nations Capital Swim Club (NCAP)\n'
-    +'Class of 2028 | Current grade: '+getCurrentGradeLabel()+' | SwimCloud #436 national, #30 Virginia | Power Index: 31.62\n'
+    +'Class of 2028 | Current grade: '+getCurrentGradeLabel()+' | SwimCloud #498 national, #29 Virginia | Power Index: 30.28\n'
     +'Goals: College swimming + maximum scholarship (athletic + merit) + Doctor of Physical Therapy (DPT) sports medicine\n'
     +'Academic profile: Strong academics, high GPA, wants athletic and merit scholarships stacked\n\n'
     +'## CURRENT BEST TIMES\n'+timesText()+'\n\n'
@@ -789,7 +789,7 @@ function buildSys() {
     +'- D2 Championship: Already competitive — full athletic scholarships (8.1 equivalency) possible\n'
     +'- D3 Elite (UAA, NESCAC, Centennial, NCAC): Top recruit NOW — strong merit/need aid available\n\n'
     +'## TOP TARGET SCHOOLS (DPT + Swimming)\n'
-    +'D1: Northeastern (CAA/best-value DPT/co-op), Sacred Heart (NEC/3+3 DPT), Delaware (CAA/#1-2 DPT), Pitt (ACC/Top5 DPT), Miami (ACC/Top15 DPT), Iowa (Big Ten/Top10 DPT)\n'
+    +'D1: Northeastern (CAA/best-value DPT/co-op), George Washington (A-10/good madical), UVA (ACC/Kinesiology Track), Virgina Tech (ACC/Top5 DPT), University of Florida (SEC/Top5 Good DPT),  Sacred Heart (NEC/3+3 DPT), Delaware (CAA/#1-2 DPT), Pitt (ACC/Top5 DPT), Miami (ACC/Top15 DPT), Iowa (Big Ten/Top10 DPT)\n'
     +'D2: Shenandoah (CAC/DPT+MSAT dual/45min from Leesburg), Gannon (GLIAC/CAPTE DPT)\n'
     +'D3: Emory (UAA/top-20+DPT — #1 overall fit), WashU StL (UAA/Top15+DPT), Tufts (NESCAC/DPT+Boston), Johns Hopkins (Centennial/world-class pre-PT/1hr from home), Rochester (UAA/UR Medical), Kenyon (NCAC/31 consecutive D3 national titles)\n\n'
     +'## FINDING COACHES\n'
@@ -798,7 +798,7 @@ function buildSys() {
     +'3. Ask: "Would you like me to write a recruiting email?" or write it immediately if asked.\n\n'
     +'## WRITING COACH EMAILS\n'
     +'Include: Subject line with event + grad year. Opening specific to THAT school. Top 3 times by name. NCAP. VHSL State placement. '
-    +'DPT/sports medicine interest. SwimCloud: https://www.swimcloud.com/swimmer/1903826/ . Request call or visit. '
+    +'DPT/sports medicine interest. SwimCloud: https://www.swimcloud.com/swimmer/1903826/ . Recruiting Profile https://tolgacollege.us . Request call or visit. '
     +'180-250 words. Format in a distinct block starting with Subject:\n\n'
     +'## SCHOLARSHIPS\n'
     +'D1: 9.9 equivalency/team — most get 10-50% partial. Full rides very rare.\n'
@@ -814,7 +814,7 @@ function buildSys() {
     +'D2: Coach contact Sept 1 sophomore year. Tolga can always initiate.\n'
     +'D3: No restrictions — both ways anytime.\n\n'
     +'## YOUR ROLE\n'
-    +'Be warm, expert, specific, proactive. Reference actual times. Do real web searches for coaches and emails. '
+    +'Be warm, expert, specific, proactive. Reference actual times. Do real web searches for coaches and emails. Search web for best coach initial contact and follow up emails. '
     +'Write complete emails when asked. Be honest about stretch vs. realistic targets. Address the family directly.';
 }
 
